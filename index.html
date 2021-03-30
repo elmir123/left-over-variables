@@ -37,7 +37,7 @@
           <!-- New Item Button -->
           <div class="row">
             <div class="col s12 centered-container">
-              <a class="waves-effect waves-light btn-large">New Item</a>
+              <button data-target="new-item-modal" id="#new-item-button" class="waves-effect waves-light btn-large modal-trigger" >New Item</button>
             </div>
             
           </div>
@@ -45,8 +45,6 @@
           <div class="row">
               <div class="col s12 centered-container">
                   <!-- table goes here -->
-<<<<<<< HEAD
-=======
                   <table id="grocList" class="display">
                     <thead>
                         <tr>
@@ -63,7 +61,6 @@
                         </tr>
                     </tbody>
                 </table>
->>>>>>> 53f2db58e31594b3adacf3d396ea7957e00bd1a5
               </div>
           </div>
         <div>
@@ -77,11 +74,11 @@
               <form class="col s12">
                 <div class="row">
                   <div class="input-field col s6">
-                    <input id="grocery-item-input" type="text" class="validate">
+                    <input id="grocery-item-input" type="text">
                     <label for="grocery-item-input">Grocery Item</label>
                   </div>
                   <div class="input-field col s6">
-                    <input id="expiration-date-input" type="text" class="validate">
+                    <input id="expiration-date-input" type="text">
                     <label for="expiration-date-input">Expiration Date</label>
                   </div>
                 </div>

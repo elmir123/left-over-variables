@@ -26,11 +26,16 @@ function addGroceryItem(event) {
     newItem.label = groceryItemInputElement.val();
     newItem.expirationDate = expirationDateInputElement.val();
 
+    //Reset input values
+    groceryItemInputElement.val('');
+    expirationDateInputElement.val('');
+
     //Add new item to array
     groceryItemArray.push(newItem);
 
     //Console log to view
     console.log(newItem);
+    console.log(groceryItemArray);
 }
 
 submitGroceryItemElement.click(addGroceryItem);
