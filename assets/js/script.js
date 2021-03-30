@@ -5,12 +5,14 @@ $(document).ready( function () {
             { "orderable": false, "targets": [2] }
         ]
     });
-    //modal initilize
+    //Initialize the modal window (New Item Window)
     $('.modal').modal();  
 } );
+
 //Array for storing current grocery entries
 var groceryItemArray = [];
 
+//Varaibles for "New Item" button
 var newItemButtonElement = $("#new-item-button");
 var newItemFormElement = $('#new-item-modal');
 
@@ -19,7 +21,7 @@ var groceryItemInputElement = $('#grocery-item-input');
 var expirationDateInputElement = $('#expiration-date-input');  
 var submitGroceryItemElement = $('#submit-grocery-item'); 
 
-
+//Function for adding a new grocery item
 function addGroceryItem(event) { 
     //Create new item to store inputted values
     let newItem = {
@@ -44,13 +46,13 @@ function addGroceryItem(event) {
     //Console log to view
     console.log(newItem);
     console.log(groceryItemArray);
-    // add items to local storage
+
+    //Add items to local storage
     localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
 }
 
 
-submitGroceryItemElement.click(addGroceryItem);
-// creat function to fill data table
+// create function to fill data table
 function fillList () {
     var storedFood = JSON.parse(localStorage.getItem('groceryItemArray'))
 
@@ -61,3 +63,6 @@ function renderList(){
      var groceryItemArray=groceryItemArray[i]
 
 }
+
+//Event handling for "Submit" button in New Item menu
+submitGroceryItemElement.click(addGroceryItem);
