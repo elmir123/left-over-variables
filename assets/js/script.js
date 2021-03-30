@@ -1,8 +1,13 @@
 $(document).ready( function () {
-    $('#grocList').DataTable();
+    // initialize the datatable
+    $('#grocList').DataTable({
+        "columnDefs": [
+            { "orderable": false, "targets": [2] }
+        ]
+    });
+    //modal initilize
     $('.modal').modal();  
 } );
-
 //Array for storing current grocery entries
 var groceryItemArray = [];
 
