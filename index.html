@@ -18,13 +18,7 @@
         rel="stylesheet" 
         href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"
     />
-
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
-
-
     <link rel="stylesheet" href="./assets/css/styles.css" />
-
-    
     <title>Left Over Variables</title>
   </head>
 
@@ -43,13 +37,33 @@
           <!-- New Item Button -->
           <div class="row">
             <div class="col s12 centered-container">
-              <button id="new-item-button" class="btn modal-trigger" data-target="new-item-modal" >New Item</button>
+              <a class="waves-effect waves-light btn-large">New Item</a>
             </div>
+            
           </div>
           <!-- Shopping List -->
           <div class="row">
               <div class="col s12 centered-container">
                   <!-- table goes here -->
+<<<<<<< HEAD
+=======
+                  <table id="grocList" class="display">
+                    <thead>
+                        <tr>
+                            <th>Grocery Item</th>
+                            <th>Expiry Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Apples</td>
+                            <td>2021-04-09</td>
+                            <td><a class="waves-effect waves-light btn-large">X</td>
+                        </tr>
+                    </tbody>
+                </table>
+>>>>>>> 53f2db58e31594b3adacf3d396ea7957e00bd1a5
               </div>
           </div>
         <div>
@@ -80,8 +94,8 @@
             <button id="submit-grocery-item" class="modal-action modal-close waves-effect waves-red btn green darken-3">Submit</button>
           </div>
         </div>
-      </div>
-
+          
+        </div>
 
     </main>
     
