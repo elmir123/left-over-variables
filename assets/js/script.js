@@ -23,10 +23,12 @@ var submitGroceryItemElement = $('#submit-grocery-item');
 
 //Function for adding a new grocery item
 function addGroceryItem(event) { 
+
     //Create new item to store inputted values
     let newItem = {
         "label":'',
-        "expirationDate":''
+        "expirationDate":'',
+        "id":''
     }
 
     //Add inputs from modal fields    
@@ -41,7 +43,6 @@ function addGroceryItem(event) {
     //Add new item to array
     groceryItemArray.push(newItem);
     
-   
 
     //Console log to view
     console.log(newItem);
@@ -49,6 +50,7 @@ function addGroceryItem(event) {
 
     //Add items to local storage
     localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
+
 }
 
 
@@ -66,3 +68,4 @@ function renderList(){
 
 //Event handling for "Submit" button in New Item menu
 submitGroceryItemElement.click(addGroceryItem);
+
