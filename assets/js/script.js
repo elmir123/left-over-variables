@@ -3,7 +3,10 @@ $(document).ready( function () {
     // initialize the datatable
     dataTableHandle = $('#grocList').DataTable({
         "columnDefs": [
-            { "orderable": false, "targets": [2] }
+            //disabel sorting for the remove button column
+            { "orderable": false, "targets": [2] },
+            //add class to center the buttons of the remove button column
+            { "className": "text_align_center", "targets": [ 2 ] }
         ]
     });
     //Initialize the modal window (New Item Window)
@@ -66,35 +69,25 @@ function addGroceryItem(event) {
 }
 
 function addRow(newItem) {
-    // let newRow = $(document.createElement('tr'))
-
-    // let newLabel = $(document.createElement('td'))
-    // let newDate = $(document.createElement('td'))
-    // let newButton = $(document.createElement('td'))
-
-    // newLabel.text(newItem.label);
-    // newDate.text(newItem.expirationDate);
-
-    // let aTag = $(document.createElement('a'));
-    // let iTag = $(document.createElement('i'));
-
-    // aTag.addClass('delete_grocery');
-    // aTag.attr('href','#');
-    // aTag.attr('data-id', newItem.id);
-
-    // iTag.addClass('far fa-window-close fa-w-16 fa-2x');
+    //creating the remove button elements of the row
+    let newButton = $(document.createElement('td'))
+    let aTag = $(document.createElement('a'));
+    let iTag = $(document.createElement('i'));
     
-    // newRow.attr('id','item_' + newItem.id);
-
+    //setting button attributes
+    aTag.addClass('delete_grocery');
+    aTag.attr('href','#');
+    aTag.attr('data-id', newItem.id);
+    iTag.addClass('far fa-window-close fa-w-16 fa-2x');
+    
     // Assemble tags
-    // aTag.append(iTag);
-    // newButton.append(aTag);
+    aTag.append(iTag);
+    newButton.append(aTag);
 
-    // newRow.append(newDate);
-    // newRow.append(newButton);
-
-    dataTableHandle.row.add([newItem.label, newItem.expirationDate, '<a href="#" class="delete_grocery" data-id = "'+newItem.id+'"><i class="far fa-window-close fa-w-16 fa-2x"></i></a>']).draw();
-
+    //set a handle for the new row, added the .html() to the generated button tag, .node() to create a node of the row
+    var newRow = dataTableHandle.row.add([newItem.label, newItem.expirationDate, newButton.html()]).draw().node();
+    // adding the id to the generated tr element
+    $(newRow).attr('id','item_' + newItem.id);
 }
 
 
