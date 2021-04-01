@@ -121,5 +121,24 @@ submitGroceryItemElement.click(addGroceryItem);
 
 //Event delegation for removing rows from the data table
 $('#grocList').on('click', ".delete_grocery", function(){
-   dataTableHandle.row($(this).parents('tr')).remove().draw();
+    //Delete row from data table
+    dataTableHandle.row($(this).parents('tr')).remove().draw();
+
+    //Delete entry from current grocery item array
+    let removeId = $(this).data('id');
+
+    //Check for item with matching id in the current grocery array, remove if id matches the id of the clicked row element
+    for (let index = 0; index < groceryItemArray.length; index++) {
+        const element = groceryItemArray[index];
+
+        //Check if id's match
+        if(+element.id === removeId){
+            //Remove using splice method             
+            groceryItemArray.splice(index,1)
+        }
+    }
+
+    //Update local storage
+    localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
+
 })
