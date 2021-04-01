@@ -121,10 +121,13 @@ submitGroceryItemElement.click(addGroceryItem);
 
 //Event delegation for removing rows from the data table
 $('#grocList').on('click', ".delete_grocery", function(){
-    //Delete row from data table
+
+    //-----Delete row from data table-----
     dataTableHandle.row($(this).parents('tr')).remove().draw();
 
-    //Delete entry from current grocery item array
+    //-----Delete entry from current grocery item array-----
+
+    //Get Id from selected element by accessing the data attribute
     let removeId = $(this).data('id');
 
     //Check for item with matching id in the current grocery array, remove if id matches the id of the clicked row element
@@ -138,7 +141,7 @@ $('#grocList').on('click', ".delete_grocery", function(){
         }
     }
 
-    //Update local storage
+    //-----Update local storage-----
     localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
 
 })
