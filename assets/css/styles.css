@@ -28,8 +28,7 @@ table {
     color: rgb(211, 100, 100);
 }
 
-#grocList, th, tr {
-    color: hotpink;
+#grocList {
     width: 100% !important;
 }
 
