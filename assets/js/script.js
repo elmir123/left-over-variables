@@ -9,6 +9,8 @@ $(document).ready( function () {
             { "className": "text_align_center", "targets": [ 2 ] }
         ]
     });
+    //Call the fillList function to populate the datatable from local storage
+    fillList();
     //Initialize the modal window (New Item Window)
     $('.modal').modal();  
 } );
@@ -86,6 +88,7 @@ function addRow(newItem) {
 
     //set a handle for the new row, added the .html() to the generated button tag, .node() to create a node of the row
     var newRow = dataTableHandle.row.add([newItem.label, newItem.expirationDate, newButton.html()]).draw().node();
+
     // adding the id to the generated tr element
     $(newRow).attr('id','item_' + newItem.id);
 }
@@ -93,6 +96,19 @@ function addRow(newItem) {
 
 
 
+<<<<<<< HEAD
+//create function to fill data table
+ function fillList () {
+     var storedFood = JSON.parse(localStorage.getItem('groceryItemArray'));
+     console.log(storedFood.length);
+     for (var i =0; i < storedFood.length; i++)
+     {
+     newItem = storedFood[i];
+     addRow(newItem);
+     groceryItemArray.push(newItem);
+    }
+  }
+=======
 
 b
 // create function to fill data table
@@ -100,9 +116,10 @@ b
 //     var storedFood = JSON.parse(localStorage.getItem('groceryItemArray'))
 
 // }
+>>>>>>> df8277ab63647ec7d2e68ef53e478a0bc01dc692
 // // create function to populate data table
 // function renderList(){
-//      for (var i =0; i < groceryItemArray.length; i++)
+//        for (var i =0; i < groceryItemArray.length; i++)
 //      var groceryItemArray=groceryItemArray[i]
 
 // }
