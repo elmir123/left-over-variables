@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link 
+        rel="stylesheet" 
+        href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/styles2.css" />
+    <title>Leftover Variables</title>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="row">
+        <div class="col s12 centered-container text_align_center">
+          <h1>RECIPES</h1>
+        </div></div>
+      <div>
+          <ul>
+              <li>
+                  <a href="#groceries">Back to groceries</a>
+              </li>
+              <li>
+                  <a href="#cooking-time">Cooking time</a>
+              </li>
+              <li>
+                  <a href="#recipes">Work</a>
+              </li>
+              </ul>
+      </div>
+</div>
+
+
+    <main>
+        <div class="container ">
+          <!-- Page Title -->
+          <div class="row">
+            <div class="col s12 centered-container text_align_center">
+              <h1>LEFTOVER VARIABLES</h1>
+            </div>
+          </div>
+          <!-- New Item Button -->
+          <div class="row">
+            <div class="col s12 centered-container">
+              <button data-target="new-item-modal" id="#new-item-button" class="waves-effect waves-light btn-large modal-trigger" >New Item</button>
+            </div>
+          </div>
+          <!-- Shopping List -->
+          <div class="row">
+              <div class="col s12">
+                  <!-- table goes here -->
+                  <table id="grocList" class="display">
+                    <thead>
+                        <tr>
+                            <th>Grocery Item</th>
+                            <th>Expiry Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Apples</td>
+                            <td>2021-04-09</td>
+                            <td class="text_align_center"><a href="#" class="delete_grocery"><i class="far fa-window-close fa-w-16 fa-2x"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+              </div>
+          </div>
+        <div>
+
+        <!-- Modal HTML -->
+        <div id="new-item-modal" class="modal">
+          <div class="modal-content">
+            <h4>Title</h4>
+            
+            <div class="row">
+              <form class="col s12">
+                <div class="row">
+                  <div class="input-field col s6">
+                    <input id="grocery-item-input" type="text">
+                    <label for="grocery-item-input">Grocery Item</label>
+                  </div>
+                  <div class="input-field col s6">
+                    <input id="expiration-date-input" type="text">
+                    <label for="expiration-date-input">Expiration Date</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+      
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn orange darken-3">Cancel</a>
+            <button id="submit-grocery-item" class="modal-action modal-close waves-effect waves-red btn green darken-3">Submit</button>
+          </div>
+        </div>
+          
+        </div>
+
+        <div class="cooking-time">Cooking Time</div>
+       
+
+    </main>
+    
+     <footer>
+
+     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <!-- Materialize -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+
+body {
+    background-color: white;
+  }
+
+.groceries {
+    margin-bottom: 20px;
+    padding: 50px;
+    height: 125px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #ffffff;
+    font-size: 36px;
+    flex: 2 1 200px;
+}
+
+.cooking-time {
+    margin-bottom: 20px;
+    padding: 50px;
+    height: 300px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #ffffff;
+    font-size: 36px;
+    flex: 2 1 200px;
+}
+
+.recipes { 
+    margin-bottom: 20px;
+    padding: 50px;
+    height: 600px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:black;
+    font-size: 36px;
+    flex: 2 1 200px;
+    justify-content: center;
+    text-align: center;
+}
+
+.cooking-time{
+    position: center;
+    align-items: center;
+    text-align: center;
+    background-color: #26a69a;
+    height: 54px;
+    line-height: 54px;
+    font-size: 15px;
+    padding: 0 28px;
+    width: 150px;
+  }
+
+.centered-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete_grocery i{
+    color: brown;
+}
+
+.header {
+    
+    padding: 20px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: rgb(99, 189, 121);
+    color: #ffffff;
+}
+
+#grocList{
+    width: 100% !important;
+}
+#grocList_filter input{
+    padding: 0px !important;
+    height: 2rem;
+}
+.text_align_center{
+    text-align: center;
+}
