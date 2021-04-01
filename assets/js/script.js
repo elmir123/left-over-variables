@@ -96,7 +96,6 @@ function addRow(newItem) {
 
 
 
-<<<<<<< HEAD
 //create function to fill data table
  function fillList () {
      var storedFood = JSON.parse(localStorage.getItem('groceryItemArray'));
@@ -108,7 +107,6 @@ function addRow(newItem) {
      groceryItemArray.push(newItem);
     }
   }
-=======
 
 
 // create function to fill data table
@@ -116,7 +114,6 @@ function addRow(newItem) {
 //     var storedFood = JSON.parse(localStorage.getItem('groceryItemArray'))
 
 // }
->>>>>>> df8277ab63647ec7d2e68ef53e478a0bc01dc692
 // // create function to populate data table
 // function renderList(){
 //        for (var i =0; i < groceryItemArray.length; i++)
