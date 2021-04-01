@@ -94,7 +94,7 @@ function addRow(newItem) {
 
 
 
-
+b
 // create function to fill data table
 // function fillList () {
 //     var storedFood = JSON.parse(localStorage.getItem('groceryItemArray'))
