@@ -107,12 +107,6 @@ function addRow(newItem) {
      groceryItemArray.push(newItem);
     }
   }
-
-
-// create function to fill data table
-// function fillList () {
-//     var storedFood = JSON.parse(localStorage.getItem('groceryItemArray'))
-
 // }
 // // create function to populate data table
 // function renderList(){
@@ -126,5 +120,27 @@ submitGroceryItemElement.click(addGroceryItem);
 
 //Event delegation for removing rows from the data table
 $('#grocList').on('click', ".delete_grocery", function(){
-   dataTableHandle.row($(this).parents('tr')).remove().draw();
+
+    //-----Delete row from data table-----
+    dataTableHandle.row($(this).parents('tr')).remove().draw();
+
+    //-----Delete entry from current grocery item array-----
+
+    //Get Id from selected element by accessing the data attribute
+    let removeId = $(this).data('id');
+
+    //Check for item with matching id in the current grocery array, remove if id matches the id of the clicked row element
+    for (let index = 0; index < groceryItemArray.length; index++) {
+        const element = groceryItemArray[index];
+
+        //Check if id's match
+        if(+element.id === removeId){
+            //Remove using splice method             
+            groceryItemArray.splice(index,1)
+        }
+    }
+
+    //-----Update local storage-----
+    localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
+
 })
