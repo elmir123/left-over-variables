@@ -1,3 +1,15 @@
+body {
+    background-color:rgb(214, 204, 190);
+}
+
+thead {
+    background-color: mintcream;
+}
+
+table {
+    color: rgb(127, 148, 137);
+}
+
 .centered-container{
     display: flex;
     flex-direction: column;
@@ -5,16 +17,24 @@
     align-items: center;
 }
 
-.delete_grocery i{
-    color: brown;
+.container {
+    background-color: rgb(217, 236, 217);
+    padding-bottom: 25px;
 }
+
+.delete_grocery i{
+    color: rgb(211, 100, 100);
+}
+
 #grocList{
     width: 100% !important;
 }
+
 #grocList_filter input{
     padding: 0px !important;
     height: 2rem;
 }
+
 .text_align_center{
     text-align: center;
 }
