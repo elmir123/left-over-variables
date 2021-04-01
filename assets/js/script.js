@@ -93,6 +93,8 @@ function addRow(newItem) {
 
 
 
+
+
 // create function to fill data table
 // function fillList () {
 //     var storedFood = JSON.parse(localStorage.getItem('groceryItemArray'))
@@ -108,3 +110,7 @@ function addRow(newItem) {
 //Event handling for "Submit" button in New Item menu
 submitGroceryItemElement.click(addGroceryItem);
 
+//Event delegation for removing rows from the data table
+$('#grocList').on('click', ".delete_grocery", function(){
+   dataTableHandle.row($(this).parents('tr')).remove().draw();
+})
