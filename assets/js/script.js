@@ -96,6 +96,7 @@ function addRow(newItem) {
 
 
 
+<<<<<<< HEAD
 //create function to fill data table
  function fillList () {
      var storedFood = JSON.parse(localStorage.getItem('groceryItemArray'));
@@ -107,6 +108,15 @@ function addRow(newItem) {
      groceryItemArray.push(newItem);
     }
   }
+=======
+
+
+// create function to fill data table
+// function fillList () {
+//     var storedFood = JSON.parse(localStorage.getItem('groceryItemArray'))
+
+// }
+>>>>>>> df8277ab63647ec7d2e68ef53e478a0bc01dc692
 // // create function to populate data table
 // function renderList(){
 //        for (var i =0; i < groceryItemArray.length; i++)
@@ -117,3 +127,7 @@ function addRow(newItem) {
 //Event handling for "Submit" button in New Item menu
 submitGroceryItemElement.click(addGroceryItem);
 
+//Event delegation for removing rows from the data table
+$('#grocList').on('click', ".delete_grocery", function(){
+   dataTableHandle.row($(this).parents('tr')).remove().draw();
+})
