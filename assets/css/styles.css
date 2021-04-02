@@ -22,6 +22,7 @@ table {
 .container {
     background-color: rgb(217, 236, 217);
     padding-bottom: 25px;
+    padding-top: 25px;
 }
 
 .delete_grocery i{
