@@ -4,9 +4,9 @@ $(document).ready( function () {
     dataTableHandle = $('#grocList').DataTable({
         "columnDefs": [
             //disabel sorting for the remove button column
-            { "orderable": false, "targets": [2] },
+            { "orderable": false, "targets": [0,3] },
             //add class to center the buttons of the remove button column
-            { "className": "text_align_center", "targets": [ 2 ] }
+            { "className": "text_align_center", "targets": [ 3 ] }
         ]
     });
     //Call the fillList function to populate the datatable from local storage
