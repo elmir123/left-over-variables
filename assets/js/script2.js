@@ -1,12 +1,14 @@
 var dataTableHandle;
+var selectedGroceries = [];
+var requestUrl;
 $(document).ready( function () {
     // initialize the datatable
     dataTableHandle = $('#grocList').DataTable({
         "columnDefs": [
-            //disabel sorting for the remove button column
+            //disabel sorting for the remove and checkbox column
             { "orderable": false, "targets": [0,3] },
-            //add class to center the buttons of the remove button column
-            { "className": "text_align_center", "targets": [ 3 ] }
+            //add class to center remove and checkbox column
+            { "className": "text_align_center", "targets": [ 0,3 ] }
         ]
     });
     //Call the fillList function to populate the datatable from local storage
@@ -14,7 +16,6 @@ $(document).ready( function () {
     //Initialize the modal window (New Item Window)
     $('.modal').modal();  
 
-    
 } );
 
 //Array for storing current grocery entries
@@ -32,7 +33,6 @@ var groceryItemInputElement = $('#grocery-item-input');
 var expirationDateInputElement = $('#expiration-date-input');  
 var submitGroceryItemElement = $('#submit-grocery-item');
 
-var grocCheckboxes = $(".grocCheckbox");
 
 //Test button used to fetch sample data from the API
 var testButton = $('#test-button');
@@ -67,11 +67,6 @@ function addGroceryItem(event) {
     //Add row to table
     addRow(newItem);
     
-
-    //Console log to view
-    console.log(newItem);
-    console.log(groceryItemArray);
-
     //Add items to local storage
     localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
 
@@ -80,8 +75,21 @@ function addGroceryItem(event) {
 function addRow(newItem) {
     //creating the remove button elements of the row
     let newButton = $(document.createElement('td'))
+    let newLabel = $(document.createElement('td'))
     let aTag = $(document.createElement('a'));
     let iTag = $(document.createElement('i'));
+    //create the checkbox for selecting ingrediants
+    let checkboxLabel = $(document.createElement('label'))
+    let checkboxInput = $(document.createElement('input')).addClass("grocCheckbox");
+    let emptySpan = $(document.createElement('span'));
+    checkboxInput.attr({
+        "id":"check_"+newItem.id,
+        "data-groceryname":newItem.label,
+        "checked":"checked",
+        "type":"checkbox"
+    });
+    checkboxLabel.append(checkboxInput,emptySpan);
+    newLabel.append(checkboxLabel);
     
     //setting button attributes
     aTag.addClass('delete_grocery');
@@ -92,9 +100,11 @@ function addRow(newItem) {
     // Assemble tags
     aTag.append(iTag);
     newButton.append(aTag);
-
+   
+    // push the new label to the array of selected groceries
+    selectedGroceries.push(newItem.label);
     //set a handle for the new row, added the .html() to the generated button tag, .node() to create a node of the row
-    var newRow = dataTableHandle.row.add(["hi",newItem.label, newItem.expirationDate, newButton.html()]).draw().node();
+    var newRow = dataTableHandle.row.add([newLabel.html(),newItem.label, newItem.expirationDate, newButton.html()]).draw().node();
 
     // adding the id to the generated tr element
     $(newRow).attr('id','item_' + newItem.id);
@@ -106,7 +116,6 @@ function addRow(newItem) {
 //create function to fill data table
  function fillList () {
      var storedFood = JSON.parse(localStorage.getItem('groceryItemArray'));
-     console.log(storedFood.length);
      for (var i =0; i < storedFood.length; i++)
      {
      newItem = storedFood[i];
@@ -115,7 +124,31 @@ function addRow(newItem) {
     }
   }
 
+// helper function to handle removal of the item from the selelcted list when checkmark is unchecked and the button to remove the item is pressed
+function removeFromSelectedList(object){
+    //itterate over not just last seen but the entire array in case grocery is repeated
+    for( var i = 0; i < selectedGroceries.length; i++){ 
+        //using splice to remove the objects based on the grocery name from the selectedGroceries array
+        if ( selectedGroceries[i] === object.data("groceryname")) { 
+            selectedGroceries.splice(i, 1); 
+          i--; 
+        }}
+    console.log(selectedGroceries);
+}
 
+
+//handle check and uncheck select checkbox events
+$("body").on('click',".grocCheckbox", function(){
+    //on change if this checkbox is checked
+    if ($(this).is(':checked')){
+        //add the item to the array of selectedGroceries
+        selectedGroceries.push($(this).data("groceryname"));
+        console.log(selectedGroceries);
+    }else{
+        // remove item from the array of selectedGroceries
+        removeFromSelectedList($(this));
+    }
+});
 
 function createRecipeCards(recipes) {
     recipes.forEach(element => {
@@ -136,8 +169,10 @@ function createRecipeCard(recipe) {
 submitGroceryItemElement.click(addGroceryItem);
 
 testButton.click(function (params) {
-    var requestUrl = 'https://api.edamam.com/search?q=chicken+spinach&app_id=03d33e60&app_key=82cdeff85835203474becaab930c556c&from=0&to=5&calories=591-722&health=alcohol-free';
-
+    //finaly set the requestUrl with the new selected options
+    console.log(selectedGroceries);
+    requestUrl = 'https://api.edamam.com/search?q='+selectedGroceries.join("+")+'&app_id=03d33e60&app_key=82cdeff85835203474becaab930c556c&from=0&to=5&calories=591-722&health=alcohol-free'; 
+    
     fetch(requestUrl, {
         // The browser fetches the resource from the remote server without first looking in the cache.
         // The browser will then update the cache with the downloaded resource.
@@ -153,14 +188,17 @@ testButton.click(function (params) {
 
 //Event delegation for removing rows from the data table
 $('#grocList').on('click', ".delete_grocery", function(){
+    //Get Id from selected element by accessing the data attribute
+    let removeId = $(this).data('id');
+
+    // first remove item from the selected List
+    removeFromSelectedList($("#check_"+removeId))
 
     //-----Delete row from data table-----
     dataTableHandle.row($(this).parents('tr')).remove().draw();
 
     //-----Delete entry from current grocery item array-----
 
-    //Get Id from selected element by accessing the data attribute
-    let removeId = $(this).data('id');
 
     //Check for item with matching id in the current grocery array, remove if id matches the id of the clicked row element
     for (let index = 0; index < groceryItemArray.length; index++) {
@@ -172,11 +210,16 @@ $('#grocList').on('click', ".delete_grocery", function(){
             groceryItemArray.splice(index,1)
         }
     }
-
+    // remove this item from the grocery list
+    
+    
     //-----Update local storage-----
     localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
 
 })
+
+
+
 
 
 
