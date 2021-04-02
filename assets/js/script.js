@@ -99,13 +99,14 @@ function addRow(newItem) {
 //create function to fill data table
 function fillList () {
     var storedFood = JSON.parse(localStorage.getItem('groceryItemArray'));
-    for (var i =0; i < storedFood.length; i++)
-    {
-    newItem = storedFood[i];
-    addRow(newItem);
-    groceryItemArray.push(newItem);
+    if(storedFood){
+        for (var i =0; i < storedFood.length; i++){
+            newItem = storedFood[i];
+            addRow(newItem);
+            groceryItemArray.push(newItem);
+        }   
     }
-}
+  }
 // }
 // // create function to populate data table
 // function renderList(){
