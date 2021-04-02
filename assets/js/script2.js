@@ -13,6 +13,8 @@ $(document).ready( function () {
     fillList();
     //Initialize the modal window (New Item Window)
     $('.modal').modal();  
+
+    
 } );
 
 //Array for storing current grocery entries
@@ -30,7 +32,12 @@ var groceryItemInputElement = $('#grocery-item-input');
 var expirationDateInputElement = $('#expiration-date-input');  
 var submitGroceryItemElement = $('#submit-grocery-item');
 
-var testDiv = $('#text-div')
+var grocCheckboxes = $(".grocCheckbox");
+
+//Test button used to fetch sample data from the API
+var testButton = $('#test-button');
+
+var recipeListElement = $('#recipe-list');
 
 //Function for adding a new grocery item
 function addGroceryItem(event) { 
@@ -87,7 +94,7 @@ function addRow(newItem) {
     newButton.append(aTag);
 
     //set a handle for the new row, added the .html() to the generated button tag, .node() to create a node of the row
-    var newRow = dataTableHandle.row.add([newItem.label, newItem.expirationDate, newButton.html()]).draw().node();
+    var newRow = dataTableHandle.row.add(["hi",newItem.label, newItem.expirationDate, newButton.html()]).draw().node();
 
     // adding the id to the generated tr element
     $(newRow).attr('id','item_' + newItem.id);
@@ -107,16 +114,42 @@ function addRow(newItem) {
      groceryItemArray.push(newItem);
     }
   }
-// }
-// // create function to populate data table
-// function renderList(){
-//        for (var i =0; i < groceryItemArray.length; i++)
-//      var groceryItemArray=groceryItemArray[i]
 
-// }
+
+
+function createRecipeCards(recipes) {
+    recipes.forEach(element => {
+        let recipeCard = createRecipeCard(element.recipe);
+    });    
+}
+
+function createRecipeCard(recipe) {
+    //Create html element
+    let recipeCard = $('<div class="col s12 m7"><div class="card horizontal"><div class="card-image"><img src="'+recipe.image+'"></div><div class="card-stacked"><div class="card-content"><p>'+recipe.label+'</p></div><div class="card-action"></div><a href="#">This is a link</a></div></div></div></div>)');
+
+    recipeListElement.append(recipeCard)
+}
+
+
 
 //Event handling for "Submit" button in New Item menu
 submitGroceryItemElement.click(addGroceryItem);
+
+testButton.click(function (params) {
+    var requestUrl = 'https://api.edamam.com/search?q=chicken+spinach&app_id=03d33e60&app_key=82cdeff85835203474becaab930c556c&from=0&to=5&calories=591-722&health=alcohol-free';
+
+    fetch(requestUrl, {
+        // The browser fetches the resource from the remote server without first looking in the cache.
+        // The browser will then update the cache with the downloaded resource.
+        cache: 'reload',
+        })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            createRecipeCards(data.hits);
+    });
+});
 
 //Event delegation for removing rows from the data table
 $('#grocList').on('click', ".delete_grocery", function(){
@@ -144,3 +177,7 @@ $('#grocList').on('click', ".delete_grocery", function(){
     localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
 
 })
+
+
+
+
