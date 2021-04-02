@@ -1,5 +1,11 @@
 body {
-    background-color:rgb(255, 255, 255);
+    background-color:rgb(255, 255, 255);    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+header {
+    background-color: powderblue;
+    color: white;
 }
 
 thead {
@@ -10,19 +16,19 @@ table {
     color:  rgb(127, 148, 137);
 }
 
+nav {
+    display: flex;
+    justify-content: center;
+    background-color:slateblue
+}
 
-
-.centered-container{
+.container {
+    padding-bottom: 25px;
+    padding-top: 25px;    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.container {
-    background-color: rgb(217, 236, 217);
-    padding-bottom: 25px;
-    padding-top: 25px;
 }
 
 .delete_grocery i{
@@ -38,6 +44,11 @@ table {
     height: 2rem;
 }
 
+#test-button, #recipe-list {
+
+}
+
 .text_align_center{
     text-align: center;
 }
+
