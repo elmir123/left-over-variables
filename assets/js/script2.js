@@ -35,7 +35,7 @@ var submitGroceryItemElement = $('#submit-grocery-item');
 
 
 //Test button used to fetch sample data from the API
-var testButton = $('#test-button');
+var generateRecipesButton = $('#generate-recipes-button');
 
 var recipeListElement = $('#recipe-list');
 
@@ -152,12 +152,17 @@ $("body").on('click',".grocCheckbox", function(){
 });
 
 function createRecipeCards(recipes) {
+    //First, reset html content 
+    recipeListElement.html('');
+
     recipes.forEach(element => {
         let recipeCard = createRecipeCard(element.recipe);
     });    
 }
 
 function createRecipeCard(recipe) {
+
+
     //Create html element
     let recipeCard = $('<div class="col s12 m7"><div class="card horizontal"><div class="card-image"><img src="'+recipe.image+'"></div><div class="card-stacked"><div class="card-content"><p>'+recipe.label+'</p></div><div class="card-action"></div><a href="#">This is a link</a></div></div></div></div>)');
 
@@ -169,7 +174,7 @@ function createRecipeCard(recipe) {
 //Event handling for "Submit" button in New Item menu
 submitGroceryItemElement.click(addGroceryItem);
 
-testButton.click(function (params) {
+generateRecipesButton.click(function (params) {
     //finaly set the requestUrl with the new selected options
     console.log(selectedGroceries);
     requestUrl = 'https://api.edamam.com/search?q='+selectedGroceries.join("+")+'&app_id=03d33e60&app_key=82cdeff85835203474becaab930c556c&from=0&to=5&calories=591-722&health=alcohol-free'; 

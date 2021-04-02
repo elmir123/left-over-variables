@@ -106,7 +106,7 @@ function fillList () {
             groceryItemArray.push(newItem);
         }   
     }
-  }
+}
 // }
 // // create function to populate data table
 // function renderList(){
