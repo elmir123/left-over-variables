@@ -55,7 +55,7 @@ nav {
 .recipe_ingredient_list{
     width: 80%;
     overflow: auto;
-    max-height: 3rem;
+    max-height: 6rem;
 }
 
 .card-image{
