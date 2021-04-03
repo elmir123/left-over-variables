@@ -41,6 +41,7 @@ var recipeListElement = $('#recipe-list');
 
 // Initalize the date picker set format to day month year and to auto close when date is selected
 $('.datepicker').datepicker({
+    container: '.datecont',
     format:'dd-mm-yyyy',
     autoClose: true,  
 });
