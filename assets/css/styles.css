@@ -44,11 +44,38 @@ nav {
     height: 2rem;
 }
 
-#test-button, #recipe-list {
-
-}
-
 .text_align_center{
     text-align: center;
 }
 
+.card-content > p {
+    padding: 5px 0px 5px;
+}
+
+.recipe_ingredient_list{
+    width: 80%;
+    overflow: auto;
+    max-height: 3rem;
+}
+
+.card-image{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-link{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+
+    margin: 0px 20px 10px;
+}
+
+.card-link > a{
+    font-size: medium;
+    text-transform: capitalize;
+
+    display: inherit;
+}
