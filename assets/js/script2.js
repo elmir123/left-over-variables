@@ -30,7 +30,7 @@ var newItemFormElement = $('#new-item-modal');
 
 //Variables for modal 
 var groceryItemInputElement = $('#grocery-item-input');
-var expirationDateInputElement = $('#expiration-date-input');  
+var expirationDateInputElement = $('.datepicker');  
 var submitGroceryItemElement = $('#submit-grocery-item');
 
 
@@ -38,6 +38,12 @@ var submitGroceryItemElement = $('#submit-grocery-item');
 var generateRecipesButton = $('#generate-recipes-button');
 
 var recipeListElement = $('#recipe-list');
+
+// Initalize the date picker set format to day month year and to auto close when date is selected
+$('.datepicker').datepicker({
+    format:'dd-mm-yyyy',
+    autoClose: true,  
+});
 
 //Function for adding a new grocery item
 function addGroceryItem(event) { 

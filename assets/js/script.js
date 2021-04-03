@@ -1,5 +1,7 @@
 var dataTableHandle;
 $(document).ready( function () {
+       
+     
     // initialize the datatable
     dataTableHandle = $('#grocList').DataTable({
         "columnDefs": [
@@ -27,14 +29,21 @@ var newItemFormElement = $('#new-item-modal');
 
 //Variables for modal 
 var groceryItemInputElement = $('#grocery-item-input');
-var expirationDateInputElement = $('#expiration-date-input');  
+var expirationDateInputElement = $('.datepicker');  
 var submitGroceryItemElement = $('#submit-grocery-item');
 
 var testDiv = $('#text-div')
 
+// Initalize the date picker set format to day month year and to auto close when date is selected
+$('.datepicker').datepicker({
+    format:'dd-mm-yyyy',
+    autoClose: true,  
+});
+
+
 //Function for adding a new grocery item
 function addGroceryItem(event) { 
-
+   
     //Create new item to store inputted values
     let newItem = {
         "label":'',
