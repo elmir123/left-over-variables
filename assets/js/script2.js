@@ -167,11 +167,33 @@ function createRecipeCards(recipes) {
 }
 
 function createRecipeCard(recipe) {
+    //Get ingredients
+    let ingredientsArray = [];
+    
+    recipe.ingredients.forEach(element => {
+        ingredientsArray.push(element.text);
+    });
 
+    let ingredientList = $(document.createElement('ul'));
+
+    ingredientsArray.forEach(element => {
+        let ingredientItem =  $(document.createElement("li"));
+
+        ingredientItem.text(element);
+
+        ingredientList.append(ingredientItem);
+        
+    });
+
+    console.log(ingredientList)
 
     //Create html element
-    let recipeCard = $('<div class="col s12 m7"><div class="card horizontal"><div class="card-image"><img src="'+recipe.image+'"></div><div class="card-stacked"><div class="card-content"><p>'+recipe.label+'</p></div><div class="card-action"></div><a href="#">This is a link</a></div></div></div></div>)');
+    let recipeCard = $('<div class="col s12 m7"><div class="card horizontal"><div class="card-image"><img src="'+recipe.image+'"></div><div class="card-stacked"><div class="card-content"><h5>'+recipe.label+'</h5><p>Servings: '+recipe.yield+'</p>Ingredients:<div class="recipe_ingredient_list"> '+ingredientList.html()+'</div></div><div class="card-link"><a href="'+recipe.url+'" target="_blank" style="color: slateblue"><i class="material-icons">link</i><span>View Recipe</span></a></div></div></div></div></div>)');
 
+    //Optional Calories Display: <p>Calories: '+Math.floor(recipe.calories)+'</p>
+    
+
+    //Append to the current recipe list
     recipeListElement.append(recipeCard)
 }
 
