@@ -19,8 +19,12 @@
         href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"
     />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
     <link rel="stylesheet" href="assets/css/styles.css">
     <title>Leftover Variables</title>
+ <style>
+
+ </style>
   </head>
 
   <body>
@@ -63,7 +67,7 @@
         </div>
       </div>
         <!-- Shopping List -->
-        <div class="row">
+        <div class="row wrapper">
           <div class="col s12">
             <!-- table goes here -->
             <table id="grocList" class="display">
@@ -106,6 +110,7 @@
                   <label for="grocery-item-input">Grocery Item</label>
                 </div>
                 <div class="input-field col s6">
+                  <div class="datecont"></div>
                   <input class="datepicker" id="expiration-date-input" type="text">
                   <label for="expiration-date-input">Expiration Date</label>
                 </div>
@@ -132,6 +137,10 @@
     <!-- Materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script
+    src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+    crossorigin="anonymous"></script>
     <script src="./assets/js/script2.js"></script>
   </body>
 </html>
