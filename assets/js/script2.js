@@ -20,6 +20,7 @@ $(document).ready( function () {
 
 } );
 
+
 //Array for storing current grocery entries
 var groceryItemArray = [];
 
@@ -109,11 +110,17 @@ function addRow(newItem) {
     // Assemble tags
     aTag.append(iTag);
     newButton.append(aTag);
+    newButton.append('&nbsp;&nbsp;<a data-target="new-item-modal" class="edit_grocery modal-trigger" href="#" data-id="'+newItem.id+'"><i class="far fa-edit fa-w-16 fa-2x"></i></a>');
    
     // push the new label to the array of selected groceries
     selectedGroceries.push(newItem.label);
     //set a handle for the new row, added the .html() to the generated button tag, .node() to create a node of the row
-    var newRow = dataTableHandle.row.add([newLabel.html(),newItem.label, newItem.expirationDate, newButton.html()]).draw().node();
+    var newRow = dataTableHandle.row.add(
+        [newLabel.html(),
+        '<span id="ingl_'+newItem.id+'">'+newItem.label+'</span>',
+        '<span id="ingex_'+newItem.id+'">'+newItem.expirationDate+'</span>', 
+        newButton.html()]
+        ).draw().node();
 
     // adding the id to the generated tr element
     $(newRow).attr('id','item_' + newItem.id);
@@ -158,6 +165,14 @@ $("body").on('click',".grocCheckbox", function(){
         // remove item from the array of selectedGroceries
         removeFromSelectedList($(this));
     }
+});
+//edit gorceries
+$("body").on("click", ".edit_grocery", function(){
+    var grocId = $(this).data("id");
+    $("#expiration-date-input").val($("#ingex_"+grocId).text());
+    $("#grocery-item-input").val($("#ingl_"+grocId).text());
+    $("#modal_title").text($("#ingl_"+grocId).text());
+    
 });
 
 function createRecipeCards(recipes) {
