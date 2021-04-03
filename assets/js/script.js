@@ -4,6 +4,7 @@ $(document).ready( function () {
      
     // initialize the datatable
     dataTableHandle = $('#grocList').DataTable({
+        "order": [[ 1, "desc" ]],
         "columnDefs": [
             //disabel sorting for the remove button column
             { "orderable": false, "targets": [2] },
@@ -36,6 +37,7 @@ var testDiv = $('#text-div')
 
 // Initalize the date picker set format to day month year and to auto close when date is selected
 $('.datepicker').datepicker({
+    container: '.datecont',
     format:'dd-mm-yyyy',
     autoClose: true,  
 });
@@ -94,9 +96,14 @@ function addRow(newItem) {
     // Assemble tags
     aTag.append(iTag);
     newButton.append(aTag);
+    newButton.append('&nbsp;&nbsp;<a data-target="new-item-modal" class="edit_grocery modal-trigger" href="#" data-id="'+newItem.id+'"><i class="far fa-edit fa-w-16 fa-2x"></i></a>');
 
     //set a handle for the new row, added the .html() to the generated button tag, .node() to create a node of the row
-    var newRow = dataTableHandle.row.add([newItem.label, newItem.expirationDate, newButton.html()]).draw().node();
+    var newRow = dataTableHandle.row.add(
+        ['<span id="ingl_'+newItem.id+'">'+newItem.label+'</span>',
+        '<span id="ingex_'+newItem.id+'">'+newItem.expirationDate+'</span>', 
+        newButton.html()]
+        ).draw().node();
 
     // adding the id to the generated tr element
     $(newRow).attr('id','item_' + newItem.id);
@@ -116,13 +123,15 @@ function fillList () {
         }   
     }
 }
-// }
-// // create function to populate data table
-// function renderList(){
-//        for (var i =0; i < groceryItemArray.length; i++)
-//      var groceryItemArray=groceryItemArray[i]
 
-// }
+//edit gorceries
+$("body").on("click", ".edit_grocery", function(){
+    var grocId = $(this).data("id");
+    $("#expiration-date-input").val($("#ingex_"+grocId).text());
+    $("#grocery-item-input").val($("#ingl_"+grocId).text());
+    $("#modal_title").text($("#ingl_"+grocId).text());
+    
+});
 
 //Event handling for "Submit" button in New Item menu
 submitGroceryItemElement.click(addGroceryItem);
