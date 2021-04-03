@@ -4,6 +4,8 @@ var requestUrl;
 $(document).ready( function () {
     // initialize the datatable
     dataTableHandle = $('#grocList').DataTable({
+        //sorting by date column
+        "order": [[ 2, "desc" ]],
         "columnDefs": [
             //disabel sorting for the remove and checkbox column
             { "orderable": false, "targets": [0,3] },
