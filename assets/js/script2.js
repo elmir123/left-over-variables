@@ -31,6 +31,14 @@ var groceryTableListElement = $("#grocery-table")
 var newItemButtonElement = $("#new-item-button");
 var newItemFormElement = $('#new-item-modal');
 
+//reset Form 
+newItemButtonElement.on("click",function(){
+    groceryItemInputElement.val('');
+    expirationDateInputElement.val('');  
+    $("#modal_title").text("New Ingredient");
+});
+
+
 //Variables for modal 
 var groceryItemInputElement = $('#grocery-item-input');
 var expirationDateInputElement = $('.datepicker');  
@@ -49,34 +57,42 @@ $('.datepicker').datepicker({
     autoClose: true,  
 });
 
-//Function for adding a new grocery item
+//Function for adding a new grocery item 
 function addGroceryItem(event) { 
-
+    var newItem;
+    var obj_id = newItemFormElement.data("editing")
     //Create new item to store inputted values
-    let newItem = {
+    existing_check = getIndexFromGroceryItemId(obj_id);
+    if(existing_check !== null){
+        newItem = groceryItemArray[existing_check]
+        newItem.label = groceryItemInputElement.val();
+        newItem.expirationDate = expirationDateInputElement.val();
+        $("#ingl_"+obj_id).text(newItem.label)
+        $("#ingex_"+obj_id).text(newItem.expirationDate)
+        remove_from_storage(obj_id);
+        groceryItemArray.push(newItem);
+    }else{
+        newItem = {
         "label":'',
         "expirationDate":'',
         "id":''
+        }
+        //Add inputs from modal fields    
+        newItem.label = groceryItemInputElement.val();
+        newItem.expirationDate = expirationDateInputElement.val();
+        let newId = moment().format('X');
+        newItem.id = newId;
+
+        //Add new item to array
+        groceryItemArray.push(newItem);
+
+        //Add row to table
+        addRow(newItem);
     }
 
-    //Add inputs from modal fields    
-    newItem.label = groceryItemInputElement.val();
-    newItem.expirationDate = expirationDateInputElement.val();
-    
-    //Get unix code momentjs
-    let newId = moment().format('X');
-    newItem.id = newId;
-
-    //Reset input values
     groceryItemInputElement.val('');
     expirationDateInputElement.val('');
-
-    //Add new item to array
-    groceryItemArray.push(newItem);
-
-    //Add row to table
-    addRow(newItem);
-    
+  
     //Add items to local storage
     localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
 
@@ -191,12 +207,13 @@ $("body").on('click',".grocCheckbox", function(){
     }
 });
 //edit gorceries
+//edit gorceries
 $("body").on("click", ".edit_grocery", function(){
     var grocId = $(this).data("id");
     $("#expiration-date-input").val($("#ingex_"+grocId).text());
     $("#grocery-item-input").val($("#ingl_"+grocId).text());
     $("#modal_title").text($("#ingl_"+grocId).text());
-    
+    $("#new-item-modal").attr("data-editing",grocId);
 });
 
 function createRecipeCards(recipes) {
@@ -244,6 +261,20 @@ function createRecipeCard(recipe) {
 //Event handling for "Submit" button in New Item menu
 submitGroceryItemElement.click(addGroceryItem);
 
+function remove_from_storage(removeId){
+    let index = getIndexFromGroceryItemId(removeId);
+
+    if(index !== null){
+        //Remove using splice method             
+        groceryItemArray.splice(index,1)
+        //-----Update local storage-----
+        localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
+    }else{
+        console.error('TARGET INDEX NOT FOUND IN GROCERY ITEMS ARRAY')
+    }
+}
+
+
 generateRecipesButton.click(function (params) {
     //finaly set the requestUrl with the new selected options
     console.log(selectedGroceries);
@@ -276,16 +307,7 @@ $('#grocList').on('click', ".delete_grocery", function(){
     //-----Delete entry from current grocery item array-----
 
 
-    let index = getIndexFromGroceryItemId(removeId);
-
-    if(index !== null){
-        //Remove using splice method             
-        groceryItemArray.splice(index,1)
-        //-----Update local storage-----
-        localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
-    }else{
-        console.error('TARGET INDEX NOT FOUND IN GROCERY ITEMS ARRAY')
-    }
+    remove_from_storage(removeId);
 
 })
 
