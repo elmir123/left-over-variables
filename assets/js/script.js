@@ -124,6 +124,29 @@ function fillList () {
     }
 }
 
+//Helper function to return the groceryItemArray index of the element with the matching id
+function getIndexFromGroceryItemId(groceryItemId){
+    let targetIndex = -1;
+
+    //Check for item with matching id in the current grocery array
+    for (let i = 0; i < groceryItemArray.length; i++) {
+        const element = groceryItemArray[i];
+
+        //Check if id's match
+        if(+element.id === groceryItemId){
+            //If they do match, get the index
+            targetIndex = i;
+        }
+    }
+
+    //Check if the target index exists.If it does, return it. Otherwise, return null.
+    if(targetIndex === -1){
+        return null;
+    }else{
+        return targetIndex;
+    }
+}
+
 //edit gorceries
 $("body").on("click", ".edit_grocery", function(){
     var grocId = $(this).data("id");
@@ -147,18 +170,19 @@ $('#grocList').on('click', ".delete_grocery", function(){
     //Get Id from selected element by accessing the data attribute
     let removeId = $(this).data('id');
 
-    //Check for item with matching id in the current grocery array, remove if id matches the id of the clicked row element
-    for (let index = 0; index < groceryItemArray.length; index++) {
-        const element = groceryItemArray[index];
+    let index = getIndexFromGroceryItemId(removeId);
 
-        //Check if id's match
-        if(+element.id === removeId){
-            //Remove using splice method             
-            groceryItemArray.splice(index,1)
-        }
+    if(index !== null){
+        //Remove using splice method             
+        groceryItemArray.splice(index,1)
+        //-----Update local storage-----
+        localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
+    }else{
+        console.error('TARGET INDEX NOT FOUND IN GROCERY ITEMS ARRAY')
     }
+    
 
-    //-----Update local storage-----
-    localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
+    
 
 })
+
