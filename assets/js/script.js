@@ -52,19 +52,25 @@ $('.datepicker').datepicker({
 });
 
 
-//Function for adding a new grocery item
+//Function for adding/updating grocery items
 function addGroceryItem(event) { 
+    //Create new item to store inputted values
     var newItem;
     var obj_id = newItemFormElement.data("editing")
     //Create new item to store inputted values
     existing_check = getIndexFromGroceryItemId(obj_id);
     if(existing_check !== null){
+        //get the existing item from the array
         newItem = groceryItemArray[existing_check]
+         //update item
         newItem.label = groceryItemInputElement.val();
         newItem.expirationDate = expirationDateInputElement.val();
+         //update datatable with new values
         $("#ingl_"+obj_id).text(newItem.label)
         $("#ingex_"+obj_id).text(newItem.expirationDate)
+        //remove old item from storage 
         remove_from_storage(obj_id);
+        //push the new item to the array to be added to the localStorage
         groceryItemArray.push(newItem);
     }else{
         newItem = {
@@ -171,6 +177,7 @@ $("body").on("click", ".edit_grocery", function(){
 //Event handling for "Submit" button in New Item menu
 submitGroceryItemElement.click(addGroceryItem);
 
+//remove object from the localstorage
 function remove_from_storage(removeId){
     let index = getIndexFromGroceryItemId(removeId);
 
