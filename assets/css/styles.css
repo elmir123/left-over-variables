@@ -104,6 +104,8 @@ nav {
     background-color: #eeeeee;
 }
 
+
+/* large devices (laptops etc) */
 @media screen and (max-width: 768px){
     .card-footer{
         flex-direction: column;
@@ -112,6 +114,13 @@ nav {
 
     .recipe-save-button{
         margin: 10px 0px 10px;
+    }
+}
+
+/* extra large devices (desktops etc) */
+@media screen and (min-width: 992px){
+    #groceryListContainer{
+        width: 60%;
     }
 }
 
