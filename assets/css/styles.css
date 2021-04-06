@@ -58,6 +58,10 @@ nav {
     max-height: 6rem;
 }
 
+#recipe-list{
+    width: 90%;
+}
+
 .card-image{
     display: flex;
     flex-direction: column;
