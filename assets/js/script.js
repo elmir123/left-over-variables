@@ -1,6 +1,6 @@
 var dataTableHandle;
 $(document).ready( function () {
-    M.updateTextFields();
+    
        
      
     // initialize the datatable
@@ -17,6 +17,7 @@ $(document).ready( function () {
     fillList();
     //Initialize the modal window (New Item Window)
     $('.modal').modal();  
+    M.updateTextFields();
 } );
 
 
@@ -36,11 +37,14 @@ var groceryItemInputElement = $('#grocery-item-input');
 var expirationDateInputElement = $('.datepicker');  
 var submitGroceryItemElement = $('#submit-grocery-item');
 
+
 //reset Form 
 newItemButtonElement.on("click",function(){
     groceryItemInputElement.val('');
-    expirationDateInputElement.val('');  
+    expirationDateInputElement.val('');
     $("#modal_title").text("New Ingredient");
+    $('#expiration-date-input').val(' ');
+  M.textareaAutoResize($('#expiration-date-input'));
 });
 
 var testDiv = $('#text-div')
