@@ -1,5 +1,6 @@
 var dataTableHandle;
 $(document).ready( function () {
+    M.updateTextFields();
        
      
     // initialize the datatable
