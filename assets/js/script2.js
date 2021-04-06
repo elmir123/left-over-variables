@@ -252,10 +252,7 @@ function createRecipeCard(recipe) {
     console.log(ingredientList)
 
     //Create html element
-    let recipeCard = $('<div class="col s12 m7"><div class="card horizontal"><div class="card-image"><img src="'+recipe.image+'"></div><div class="card-stacked"><div class="card-content"><h5>'+recipe.label+'</h5><p>Servings: '+recipe.yield+'</p>Ingredients:<div class="recipe_ingredient_list"> '+ingredientList.html()+'</div></div><div class="card-link"><a href="'+recipe.url+'" target="_blank" style="color: slateblue"><i class="material-icons">link</i><span>View Recipe</span></a></div></div></div></div></div>)');
-
-    //Optional Calories Display: <p>Calories: '+Math.floor(recipe.calories)+'</p>
-    
+    let recipeCard = $('<div class="col s12 m7"><div class="card horizontal"><div class="card-image"><img src="'+recipe.image+'"></div><div class="card-stacked"><div class="card-content"><h5>'+recipe.label+'</h5><p>Servings: '+recipe.yield+'</p>Ingredients:<div class="recipe_ingredient_list"> '+ingredientList.html()+'</div></div><div class="card-link card-footer"><a href="'+recipe.url+'" target="_blank" style="color: slateblue"><i class="material-icons">link</i><span>View Recipe</span></a><button class="waves-effect waves-light btn deep-purple recipe-save-button"><i class="material-icons">add</i>Save Recipe</div></div></div></div></div>)');    
 
     //Append to the current recipe list
     recipeListElement.append(recipeCard)

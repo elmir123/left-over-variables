@@ -79,3 +79,35 @@ nav {
 
     display: inherit;
 }
+
+.card-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.recipe-save-button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.recipe-save-button > i{
+    padding-right: 3px;
+}
+
+.card-image{
+    background-color: #eeeeee;
+}
+
+@media screen and (max-width: 768px){
+    .card-footer{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .recipe-save-button{
+        margin: 10px 0px 10px;
+    }
+}
+
