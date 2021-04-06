@@ -8,9 +8,9 @@ $(document).ready( function () {
         "order": [[ 1, "desc" ]],
         "columnDefs": [
             //disabel sorting for the remove button column
-            { "orderable": false, "targets": [2] },
+            { "orderable": false, "targets": [0,3] },
             //add class to center the buttons of the remove button column
-            { "className": "text_align_center", "targets": [ 2 ] }
+            { "className": "text_align_center", "targets": [ 0,3 ] }
         ]
     });
     //Call the fillList function to populate the datatable from local storage
@@ -52,7 +52,20 @@ $('.datepicker').datepicker({
     autoClose: true,  
 });
 
-
+function add_extra_info(newItem){
+    rUrl="https://api.spoonacular.com/food/ingredients/search?apiKey=e52a263a34ae41e597206f99fb2dde1d&query="+newItem.label+"&number=1&sort=calories&sortDirection=asc"
+    $.get(rUrl, function() {}).done(function(data) { 
+        if (data.results[0]){        
+            var img="https://spoonacular.com/cdn/ingredients_100x100/"+data.results[0].image
+            newItem.ingrediantImg = img; 
+            //Add item to array 
+            groceryItemArray.push(newItem);
+            $("#ingImg_"+newItem.id).attr("src",img);
+        }
+        localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
+        
+    });
+}
 //Function for adding/updating grocery items
 function addGroceryItem(event) { 
     //Create new item to store inputted values
@@ -72,11 +85,12 @@ function addGroceryItem(event) {
         //remove old item from storage 
         remove_from_storage(obj_id);
         //push the new item to the array to be added to the localStorage
-        groceryItemArray.push(newItem);
     }else{
         newItem = {
         "label":'',
         "expirationDate":'',
+        "ingrediantImg":'',
+        "ingrediantInfo":'',
         "id":''
         }
         //Add inputs from modal fields    
@@ -84,9 +98,6 @@ function addGroceryItem(event) {
         newItem.expirationDate = expirationDateInputElement.val();
         let newId = moment().format('X');
         newItem.id = newId;
-
-        //Add new item to array
-        groceryItemArray.push(newItem);
 
         //Add row to table
         addRow(newItem);
@@ -96,7 +107,7 @@ function addGroceryItem(event) {
     expirationDateInputElement.val('');
   
     //Add items to local storage
-    localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
+    add_extra_info(newItem);
 
 }
 
@@ -119,7 +130,8 @@ function addRow(newItem,editing=false) {
 
     //set a handle for the new row, added the .html() to the generated button tag, .node() to create a node of the row
     var newRow = dataTableHandle.row.add(
-        ['<span id="ingl_'+newItem.id+'">'+newItem.label+'</span>',
+        ['<img id="ingImg_'+newItem.id+'" src="'+newItem.ingrediantImg+'"/>',
+        '<span id="ingl_'+newItem.id+'">'+newItem.label+'</span><br><span>'+newItem.ingrediantInfo+'</span>',
         '<span id="ingex_'+newItem.id+'">'+newItem.expirationDate+'</span>', 
         newButton.html()]
         ).draw().node();
