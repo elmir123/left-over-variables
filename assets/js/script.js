@@ -45,6 +45,8 @@ newItemButtonElement.on("click",function(){
     $("#modal_title").text("New Ingredient");
     $('#expiration-date-input').val(' ');
   M.textareaAutoResize($('#expiration-date-input'));
+  $('#grocery-item-input').val(' new txt');
+  M.textareaAutoResize($('#grocery-item-input'));
 });
 
 var testDiv = $('#text-div')
