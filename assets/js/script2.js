@@ -270,7 +270,7 @@ function createRecipeCard(recipe) {
     });
 
     //Create html element
-    let recipeCard = $('<div class="col s12 m7" id="recipe-card-id"><div class="card horizontal"><div class="card-image"><img src="'+recipe.image+'"></div><div class="card-stacked"><div class="card-content"><h5>'+recipe.label+'</h5><p>Servings: '+recipe.yield+'</p>Ingredients:<div class="recipe_ingredient_list"> '+ingredientList.html()+'</div></div><div class="card-link card-footer"><a href="'+recipe.url+'" target="_blank" style="color: slateblue"><i class="material-icons">link</i><span>View Recipe</span></a><button class="btn deep-purple recipe-save-button"><i class="material-icons">add</i>Save Recipe</div></div></div></div></div>)');    
+    let recipeCard = $('<div class="col s12 m7" id="recipe-card"><div class="card horizontal recipe-card-id" id=""><div class="card-image"><img src="'+recipe.image+'"></div><div class="card-stacked"><div class="card-content"><h5>'+recipe.label+'</h5><p>Servings: '+recipe.yield+'</p>Ingredients:<div class="recipe_ingredient_list"> '+ingredientList.html()+'</div></div><div class="card-link card-footer"><a href="'+recipe.url+'" target="_blank" style="color: slateblue"><i class="material-icons">link</i><span>View Recipe</span></a><button class="btn deep-purple recipe-save-button"><i class="material-icons">add</i>Save Recipe</div></div></div></div></div>)');    
 
     //Append to the current recipe list
     recipeListElement.append(recipeCard)
@@ -349,7 +349,7 @@ $('#grocList').on('click', ".delete_grocery", function(){
 $("#recipe-list").on('click', '.recipe-save-button', function(){
     
     //Get Recipe Card HTML
-    let recipeCard = $($(this).parents('#recipe-card-id').html());
+    let recipeCard = $($(this).parents('#recipe-card').html());
 
     //Get id (Name of recipe) from current html
     let recipeId = recipeCard.find('h5').text()
