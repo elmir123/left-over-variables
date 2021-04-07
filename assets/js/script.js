@@ -4,8 +4,8 @@ var grocImg = $("#grocery-item-img");
 var grocSpoonId = $("#grocery-item-spoonacularid");
 var grocInfo = $("#grocery-item-info");
 var grocItemId = $("#grocery-item-id");
-// availablekeys:  Elmir:e52a263a34ae41e597206f99fb2dde1d, Josh:7957762824aa4703b27057bf676b5bfb
-var spoonApiKey = "7957762824aa4703b27057bf676b5bfb"
+// availablekeys:  Elmir:e52a263a34ae41e597206f99fb2dde1d, Josh:7957762824aa4703b27057bf676b5bfb, Colleen:8b2361f0458a42c79641a112fd701e76
+var spoonApiKey = "8b2361f0458a42c79641a112fd701e76"
 $(document).ready( function () {
 
     // initialize the datatable
@@ -108,6 +108,7 @@ function addGroceryItem(event) {
     var obj_id = grocItemId.val()
     //Create new item to store inputted values
     existing_check = getIndexFromGroceryItemId(parseInt(obj_id));
+
     if(existing_check !== null){
         console.log("passed "+obj_id);
         //get the existing item from the array
@@ -122,9 +123,14 @@ function addGroceryItem(event) {
         //update datatable with new values
         $("#ingl_"+obj_id).text(newItem.label)
         $("#ingex_"+obj_id).text(newItem.expirationDate)
-        $("#ingImg_"+obj_id).attr("src",smallimgBase+newItem.ingrediantImg)
         $("#ingInfo_"+obj_id).html(newItem.ingrediantInfo)
-       
+
+        checkedImg="./Images/placeholder.jpg"
+        if (newItem.ingrediantImg){
+            checkedImg=smallimgBase+newItem.ingrediantImg
+        }
+        $("#ingImg_"+obj_id).attr("src",checkedImg)
+
         //remove old item from storage 
 
         remove_from_storage(parseInt(obj_id));
@@ -176,10 +182,13 @@ function addRow(newItem,editing=false) {
     aTag.append(iTag);
     newButton.append(aTag);
     newButton.append('&nbsp;&nbsp;<a data-target="new-item-modal" class="edit_grocery modal-trigger" href="#" id="editbutton_'+newItem.id+'" data-id="'+newItem.id+'" data-info="'+newItem.ingrediantInfo+'" data-img="'+newItem.ingrediantImg+'" data-spid="'+newItem.spoonacularId+'"><i class="far fa-edit fa-w-16 fa-2x"></i></a>');
-
+    checkedImg="./Images/placeholder.jpg"
+    if (newItem.ingrediantImg){
+        checkedImg=smallimgBase+newItem.ingrediantImg
+    }
     //set a handle for the new row, added the .html() to the generated button tag, .node() to create a node of the row
     var newRow = dataTableHandle.row.add(
-        ['<img id="ingImg_'+newItem.id+'" src="'+smallimgBase+newItem.ingrediantImg+'"/>',
+        ['<img id="ingImg_'+newItem.id+'" src="'+checkedImg+'"/>',
         '<span id="ingl_'+newItem.id+'">'+newItem.label+'</span><br><span id="ingInfo_'+newItem.id+'">'+newItem.ingrediantInfo+'</span>',
         '<span id="ingex_'+newItem.id+'">'+newItem.expirationDate+'</span>', 
         newButton.html()]
