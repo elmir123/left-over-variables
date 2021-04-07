@@ -1,12 +1,22 @@
 body {
-    background-color:rgb(255, 255, 255);    
+    background-color:rgb(211, 238, 223);    
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 /* foramting the ingrediant list */
 
 header {
-    background-color: powderblue;
+    background-color: rgb(57, 153, 132);
     color: white;
+}
+
+h1 {
+    font-family: monospace;
+    font-size: 5rem;
+}
+
+h2 {
+    font-family: monospace;
+    font-size: 2.5rem;
 }
 
 thead {
@@ -20,7 +30,7 @@ table {
 nav {
     display: flex;
     justify-content: center;
-    background-color:slateblue
+    background-color:rgb(36, 100, 55)
 }
 
 .container {
