@@ -335,7 +335,7 @@ function createRecipeCard(recipe) {
     });
 
     //Create html element
-    let recipeCard = $('<div class="col s12 m7" id="recipe-card"><div class="card horizontal recipe-card-id" id=""><div class="card-image"><img src="'+recipe.image+'"></div><div class="card-stacked"><div class="card-content"><h5>'+recipe.label+'</h5><p>Servings: '+recipe.yield+'</p>Ingredients:<div class="recipe_ingredient_list"> '+ingredientList.html()+'</div></div><div class="card-link card-footer"><a href="'+recipe.url+'" target="_blank" style="color: slateblue"><i class="material-icons">link</i><span>View Recipe</span></a><button class="btn deep-purple recipe-save-button"><i class="material-icons">add</i>Save Recipe</div></div></div></div></div>)');    
+    let recipeCard = $('<div class="col s12 m7" id="recipe-card"><div class="card horizontal recipe-card-id"><div class="card-image"><img src="'+recipe.image+'"></div><div class="card-stacked"><div class="card-content"><div class="card-header"><h5>'+recipe.label+'</h5></div><p>Servings: '+recipe.yield+'</p>Ingredients:<div class="recipe_ingredient_list"> '+ingredientList.html()+'</div></div><div class="card-link card-footer"><a href="'+recipe.url+'" target="_blank" style="color: slateblue"><i class="material-icons">link</i><span>View Recipe</span></a><button class="btn deep-purple recipe-save-button"><i class="material-icons">add</i>Save Recipe</div></div></div></div></div>)');    
 
     //Check if the new recipe is already favourited and style accordingly
     let recipeId = recipeCard.find('h5').text();
@@ -344,7 +344,7 @@ function createRecipeCard(recipe) {
 
     if(alreadyFavourited){
         console.log("alreadyFavourited: " + recipeId);
-        recipeCard.find('h5').append('<i class="material-icons">favorite</i>')
+        recipeCard.find('.card-header').append('<i class="material-icons favourite">favorite</i>')
     }
 
     //Append to the current recipe list
@@ -453,8 +453,6 @@ $("#recipe-list").on('click', '.recipe-save-button', function(){
         //Update localStorage
         localStorage.setItem("favouriteRecipesArray", JSON.stringify(favouriteRecipesArray));
 
-        
-        
     }
     
     //Remove button 

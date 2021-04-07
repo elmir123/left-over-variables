@@ -90,7 +90,7 @@ nav {
     display: inherit;
 }
 
-.card-footer{
+.card-footer, .card-header{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -109,6 +109,14 @@ nav {
 
 .card-image{
     background-color: #eeeeee;
+}
+
+.favourite{
+    color: #f44336;
+}
+
+.recipe-remove-button{
+    color: white;
 }
 
 
