@@ -22,7 +22,6 @@ $(document).ready( function () {
     fillList();
     //Initialize the modal window (New Item Window)
     $('.modal').modal();  
-    M.updateTextFields();
 } );
 
 
@@ -82,8 +81,8 @@ var submitGroceryItemElement = $('#submit-grocery-item');
 //reset Form 
 newItemButtonElement.on("click",function(){
     newItemFormElement.removeAttr("data-editing");
-    groceryItemInputElement.val(' ');
-    expirationDateInputElement.val(' ');
+    groceryItemInputElement.val('');
+    expirationDateInputElement.val('');
     $("#modal_title").text("New Ingredient");
     grocImg.val("");
     grocSpoonId.val("");

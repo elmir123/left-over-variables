@@ -83,10 +83,10 @@ newItemButtonElement.on("click",function(){
     groceryItemInputElement.val('');
     expirationDateInputElement.val('');  
     $("#modal_title").text("New Ingredient");
-    $('#expiration-date-input').val(' ');
-    M.textareaAutoResize($('#expiration-date-input'));
-    $('#grocery-item-input').val(' ');
-    M.textareaAutoResize($('#grocery-item-input'));
+    $('#expiration-date-input').val('');
+    // M.textareaAutoResize($('#expiration-date-input'));
+    $('#grocery-item-input').val('');
+    // M.textareaAutoResize($('#grocery-item-input'));
 });
 
 
@@ -401,7 +401,8 @@ generateRecipesButton.click(function (params) {
 });
 
 //Event delegation for removing rows from the data table
-$('#grocList').on('click', ".delete_grocery", function(){
+$('#grocList').on('click', ".delete_grocery", function(event){
+    event.preventDefault();
     //Get Id from selected element by accessing the data attribute
     let removeId = $(this).data('id');
 
