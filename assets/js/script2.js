@@ -39,6 +39,10 @@ newItemButtonElement.on("click",function(){
     groceryItemInputElement.val('');
     expirationDateInputElement.val('');  
     $("#modal_title").text("New Ingredient");
+    $('#expiration-date-input').val(' ');
+    M.textareaAutoResize($('#expiration-date-input'));
+    $('#grocery-item-input').val(' new txt');
+    M.textareaAutoResize($('#grocery-item-input'));
 });
 
 
@@ -317,8 +321,6 @@ $('#grocList').on('click', ".delete_grocery", function(){
 
 })
 
-<<<<<<< HEAD
-=======
 //Event delegation for saving recipes to localstorage
 $("#recipe-list").on('click', '.recipe-save-button', function(){
     
@@ -353,7 +355,6 @@ $("#recipe-list").on('click', '.recipe-save-button', function(){
 })
 
 
->>>>>>> d9606d6a7bfe43cefcf2b0205219d67b57fafa34
 
 
 
