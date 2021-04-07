@@ -24,6 +24,9 @@ $(document).ready( function () {
 //Array for storing current grocery entries
 var groceryItemArray = [];
 
+//Array for favourite recipes
+var favouriteRecipesArray = [];
+
 //Variables for grocery table
 var groceryTableListElement = $("#grocery-table")
 
@@ -49,6 +52,8 @@ var submitGroceryItemElement = $('#submit-grocery-item');
 var generateRecipesButton = $('#generate-recipes-button');
 
 var recipeListElement = $('#recipe-list');
+
+var testList = $('#test-list');
 
 // Initalize the date picker set format to day month year and to auto close when date is selected
 $('.datepicker').datepicker({
@@ -249,10 +254,8 @@ function createRecipeCard(recipe) {
         
     });
 
-    console.log(ingredientList)
-
     //Create html element
-    let recipeCard = $('<div class="col s12 m7"><div class="card horizontal"><div class="card-image"><img src="'+recipe.image+'"></div><div class="card-stacked"><div class="card-content"><h5>'+recipe.label+'</h5><p>Servings: '+recipe.yield+'</p>Ingredients:<div class="recipe_ingredient_list"> '+ingredientList.html()+'</div></div><div class="card-link card-footer"><a href="'+recipe.url+'" target="_blank" style="color: slateblue"><i class="material-icons">link</i><span>View Recipe</span></a><button class="waves-effect waves-light btn deep-purple recipe-save-button"><i class="material-icons">add</i>Save Recipe</div></div></div></div></div>)');    
+    let recipeCard = $('<div class="col s12 m7" id="recipe-card-id"><div class="card horizontal"><div class="card-image"><img src="'+recipe.image+'"></div><div class="card-stacked"><div class="card-content"><h5>'+recipe.label+'</h5><p>Servings: '+recipe.yield+'</p>Ingredients:<div class="recipe_ingredient_list"> '+ingredientList.html()+'</div></div><div class="card-link card-footer"><a href="'+recipe.url+'" target="_blank" style="color: slateblue"><i class="material-icons">link</i><span>View Recipe</span></a><button class="btn deep-purple recipe-save-button"><i class="material-icons">add</i>Save Recipe</div></div></div></div></div>)');    
 
     //Append to the current recipe list
     recipeListElement.append(recipeCard)
@@ -314,6 +317,43 @@ $('#grocList').on('click', ".delete_grocery", function(){
 
 })
 
+<<<<<<< HEAD
+=======
+//Event delegation for saving recipes to localstorage
+$("#recipe-list").on('click', '.recipe-save-button', function(){
+    
+    //Get Recipe Card HTML
+    let recipeCard = $($(this).parents('#recipe-card-id').html());
+
+    //Get id (Name of recipe) from current html
+    let recipeId = recipeCard.find('h5').text()
+
+    console.log(recipeId)
+
+    //Remove save button from saved html
+    recipeCard.find('button').remove();
+
+
+    
+    //testList.append(recipeCard);
+
+    let newFavourite = {
+        id:'',
+        jQueryObject:null
+    }
+
+    newFavourite.id = recipeId;
+
+    newFavourite.jQueryObject = recipeCard;
+
+    favouriteRecipesArray.push(newFavourite);
+
+    
+
+})
+
+
+>>>>>>> d9606d6a7bfe43cefcf2b0205219d67b57fafa34
 
 
 
