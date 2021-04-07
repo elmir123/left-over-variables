@@ -15,6 +15,8 @@ $(document).ready( function () {
     });
     //Call the fillList function to populate the datatable from local storage
     fillList();
+    //Call getFavourites() to get stored favourite recipes in local storage
+    getFavourites(); 
     //Initialize the modal window (New Item Window)
     $('.modal').modal();  
 
@@ -164,6 +166,15 @@ function addRow(newItem) {
             addRow(newItem);
             groceryItemArray.push(newItem);
         }   
+    }
+}
+
+function getFavourites(){
+    let storedFavourites = JSON.parse(localStorage.getItem('favouriteRecipesArray'));
+    if(storedFavourites){
+        for (let i = 0; i < storedFavourites.length; i++) {
+            favouriteRecipesArray.push(storedFavourites[i]);
+        }
     }
 }
 
@@ -317,8 +328,6 @@ $('#grocList').on('click', ".delete_grocery", function(){
 
 })
 
-<<<<<<< HEAD
-=======
 //Event delegation for saving recipes to localstorage
 $("#recipe-list").on('click', '.recipe-save-button', function(){
     
@@ -339,21 +348,23 @@ $("#recipe-list").on('click', '.recipe-save-button', function(){
 
     let newFavourite = {
         id:'',
-        jQueryObject:null
+        html:''
     }
 
     newFavourite.id = recipeId;
 
-    newFavourite.jQueryObject = recipeCard;
+    newFavourite.html = recipeCard.html();
 
     favouriteRecipesArray.push(newFavourite);
 
-    
+    console.log(favouriteRecipesArray);
+
+    //Update localStorage
+    localStorage.setItem("favouriteRecipesArray", JSON.stringify(favouriteRecipesArray));
 
 })
 
 
->>>>>>> d9606d6a7bfe43cefcf2b0205219d67b57fafa34
 
 
 
