@@ -1,11 +1,14 @@
 var dataTableHandle;
+var smallimgBase="https://spoonacular.com/cdn/ingredients_100x100/";
+var grocImg = $("#grocery-item-img");
+var grocSpoonId = $("#grocery-item-spoonacularid");
 $(document).ready( function () {
     
        
      
     // initialize the datatable
     dataTableHandle = $('#grocList').DataTable({
-        "order": [[ 1, "desc" ]],
+        "order": [[ 2, "desc" ]],
         "columnDefs": [
             //disabel sorting for the remove button column
             { "orderable": false, "targets": [0,3] },
@@ -21,6 +24,27 @@ $(document).ready( function () {
 } );
 
 
+$("#grocery-item-input").autocomplete({
+    source: function (request, response) {
+        $.getJSON("https://api.spoonacular.com/food/ingredients/autocomplete?apiKey=e52a263a34ae41e597206f99fb2dde1d&query="+request.term+"&metaInformation=true", 
+          {  }, 
+          function(data) {
+            var dataform=[]
+              if(data){
+                  dataform = data.map(function(x){
+                      return { label: x.name, id: x.id, img:x.image }
+                  })
+              }
+              response(dataform)
+          }
+        );      
+    },
+    minLength: 2,
+    select: function( event, ui ) {
+        grocImg.val(ui.item.img);
+        grocSpoonId.val(ui.item.id);
+    },
+});
 
 //Array for storing current grocery entries
 var groceryItemArray = [];
@@ -40,13 +64,17 @@ var submitGroceryItemElement = $('#submit-grocery-item');
 
 //reset Form 
 newItemButtonElement.on("click",function(){
+    newItemFormElement.removeAttr("data-editing");
     groceryItemInputElement.val('');
     expirationDateInputElement.val('');
     $("#modal_title").text("New Ingredient");
     $('#expiration-date-input').val(' ');
-  M.textareaAutoResize($('#expiration-date-input'));
-  $('#grocery-item-input').val(' ');
-  M.textareaAutoResize($('#grocery-item-input'));
+    grocImg.val("");
+    grocSpoonId.val("")
+
+    // M.textareaAutoResize($('#expiration-date-input'));
+    // $('#grocery-item-input').val(' ');
+    // M.textareaAutoResize($('#grocery-item-input'));
 });
 
 var testDiv = $('#text-div')
@@ -59,17 +87,18 @@ $('.datepicker').datepicker({
 });
 
 function add_extra_info(newItem){
-    rUrl="https://api.spoonacular.com/food/ingredients/search?apiKey=e52a263a34ae41e597206f99fb2dde1d&query="+newItem.label+"&number=1&sort=calories&sortDirection=asc"
+    main_nut=["Cholesterol","Calories","Fat","Carbohydrates","Sugar","Protein","Fiber"]
+    rUrl="https://api.spoonacular.com/food/ingredients/"+newItem.spoonacularId+"/information?apiKey=e52a263a34ae41e597206f99fb2dde1d"
     $.get(rUrl, function() {}).done(function(data) { 
-        if (data.results[0]){        
-            var img="https://spoonacular.com/cdn/ingredients_100x100/"+data.results[0].image
-            newItem.ingrediantImg = img; 
-            //Add item to array 
-            groceryItemArray.push(newItem);
-            $("#ingImg_"+newItem.id).attr("src",img);
-        }
+        console.log(data)
+        // if (data.results[0]){     
+        //     console.log(data.results[0]);
+        //     // newItem.ingrediantInfo=""
+        //     // $("#ingl_"+newItem.id).after('<br><span>'+newItem.ingrediantInfo+'</span>')
+        //     //Add item to array 
+        // }
+        groceryItemArray.push(newItem);
         localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
-        
     });
 }
 //Function for adding/updating grocery items
@@ -85,10 +114,16 @@ function addGroceryItem(event) {
          //update item
         newItem.label = groceryItemInputElement.val();
         newItem.expirationDate = expirationDateInputElement.val();
-         //update datatable with new values
+        newItem.spoonacularId = grocSpoonId.val()
+        newItem.ingrediantImg = grocImg.val()
+        
+        //update datatable with new values
         $("#ingl_"+obj_id).text(newItem.label)
         $("#ingex_"+obj_id).text(newItem.expirationDate)
+        $("#ingImg_"+obj_id).attr("src",smallimgBase+newItem.ingrediantImg)
+        
         //remove old item from storage 
+
         remove_from_storage(obj_id);
         //push the new item to the array to be added to the localStorage
     }else{
@@ -97,14 +132,18 @@ function addGroceryItem(event) {
         "expirationDate":'',
         "ingrediantImg":'',
         "ingrediantInfo":'',
+        "spoonacularId":'',
         "id":''
         }
         //Add inputs from modal fields    
         newItem.label = groceryItemInputElement.val();
         newItem.expirationDate = expirationDateInputElement.val();
+        newItem.spoonacularId = grocSpoonId.val()
+        newItem.ingrediantImg = grocImg.val()
+
         let newId = moment().format('X');
         newItem.id = newId;
-
+        console.log($("#grocery-item-input").data("spoonacularid"), $("#grocery-item-input").data("img"), newItem.ingrediantImg, "Here2");
         //Add row to table
         addRow(newItem);
     }
@@ -132,11 +171,11 @@ function addRow(newItem,editing=false) {
     // Assemble tags
     aTag.append(iTag);
     newButton.append(aTag);
-    newButton.append('&nbsp;&nbsp;<a data-target="new-item-modal" class="edit_grocery modal-trigger" href="#" data-id="'+newItem.id+'"><i class="far fa-edit fa-w-16 fa-2x"></i></a>');
+    newButton.append('&nbsp;&nbsp;<a data-target="new-item-modal" class="edit_grocery modal-trigger" href="#" data-id="'+newItem.id+'"><i class="far fa-edit fa-w-16 fa-2x" data-img="'+newItem.ingrediantImg+'" data-spid="'+newItem.spoonacularId+'"></i></a>');
 
     //set a handle for the new row, added the .html() to the generated button tag, .node() to create a node of the row
     var newRow = dataTableHandle.row.add(
-        ['<img id="ingImg_'+newItem.id+'" src="'+newItem.ingrediantImg+'"/>',
+        ['<img id="ingImg_'+newItem.id+'" src="'+smallimgBase+newItem.ingrediantImg+'"/>',
         '<span id="ingl_'+newItem.id+'">'+newItem.label+'</span><br><span>'+newItem.ingrediantInfo+'</span>',
         '<span id="ingex_'+newItem.id+'">'+newItem.expirationDate+'</span>', 
         newButton.html()]
@@ -187,10 +226,15 @@ function getIndexFromGroceryItemId(groceryItemId){
 //edit gorceries
 $("body").on("click", ".edit_grocery", function(){
     var grocId = $(this).data("id");
+    var img = $(this).data("img");
+    var sponid = $(this).data("img");
     $("#expiration-date-input").val($("#ingex_"+grocId).text());
     $("#grocery-item-input").val($("#ingl_"+grocId).text());
     $("#modal_title").text($("#ingl_"+grocId).text());
     $("#new-item-modal").attr("data-editing",grocId);
+    $("#grocery-item-input").attr( "data-img",img);
+    $("#grocery-item-input").attr( "data-spoonacularid",sponid);
+
 });
 
 //Event handling for "Submit" button in New Item menu
@@ -211,8 +255,8 @@ function remove_from_storage(removeId){
 }
 
 //Event delegation for removing rows from the data table
-$('#grocList').on('click', ".delete_grocery", function(){
-
+$('#grocList').on('click', ".delete_grocery", function(event){
+    event.preventDefault();
     //-----Delete row from data table-----
     dataTableHandle.row($(this).parents('tr')).remove().draw();
 
