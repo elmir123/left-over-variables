@@ -295,6 +295,19 @@ function remove_from_storage(removeId){
     }
 }
 
+function checkIfFavourite(recipeName) {
+    let favourited = false;
+    for (let i = 0; i < favouriteRecipesArray.length; i++) {
+        const element = favouriteRecipesArray[i];
+        if(recipeName.localeCompare(element.id)===0){
+            //Then recipe is already favourited
+            favourited = true;
+        }
+    }
+
+    return favourited;
+}
+
 
 generateRecipesButton.click(function (params) {
     //finaly set the requestUrl with the new selected options
@@ -341,32 +354,40 @@ $("#recipe-list").on('click', '.recipe-save-button', function(){
     //Get id (Name of recipe) from current html
     let recipeId = recipeCard.find('h5').text()
 
-    console.log(recipeId)
+    let alreadyFavourited = checkIfFavourite(recipeId);
 
-    //Remove save button from saved html
-    recipeCard.find('button').remove();
+    if(!alreadyFavourited){
+        //Remove save button from saved html
+        recipeCard.find('button').remove();
+            
+        //testList.append(recipeCard);
 
+        let newFavourite = {
+            id:'',
+            html:''
+        }
+        //---Add new values to item---
+        newFavourite.id = recipeId;
 
-    
-    //testList.append(recipeCard);
+        newFavourite.html = recipeCard.html();
 
-    let newFavourite = {
-        id:'',
-        html:''
+        //Push to favourites array
+        favouriteRecipesArray.push(newFavourite);
+
+        //Update localStorage
+        localStorage.setItem("favouriteRecipesArray", JSON.stringify(favouriteRecipesArray));
+
+        
+        
     }
+    
+    //Remove button 
+    $(this).remove()
 
-    newFavourite.id = recipeId;
-
-    newFavourite.html = recipeCard.html();
-
-    favouriteRecipesArray.push(newFavourite);
-
-    console.log(favouriteRecipesArray);
-
-    //Update localStorage
-    localStorage.setItem("favouriteRecipesArray", JSON.stringify(favouriteRecipesArray));
-
+    console.log(favouriteRecipesArray)
 })
+
+
 
 
 

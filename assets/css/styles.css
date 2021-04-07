@@ -58,7 +58,7 @@ nav {
     max-height: 6rem;
 }
 
-#recipe-list{
+#recipe-list, #favourites-list{
     width: 90%;
 }
 
@@ -88,6 +88,7 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    min-height: 36px;
 }
 
 .recipe-save-button{
