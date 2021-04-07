@@ -238,7 +238,11 @@ $("body").on("click", ".edit_grocery", function(){
     $("#expiration-date-input").val($("#ingex_"+grocId).text());
     $("#grocery-item-input").val($("#ingl_"+grocId).text());
     $("#modal_title").text($("#ingl_"+grocId).text());
-    $("#new-item-modal").attr("data-editing",grocId);
+    $("#new-item-modal").attr("data-editing",grocId)
+    $('#expiration-date-input').val(' ');
+    M.textareaAutoResize($('#expiration-date-input'));
+    $('#grocery-item-input').val(' ');
+    M.textareaAutoResize($('#grocery-item-input'));
 });
 
 function createRecipeCards(recipes) {

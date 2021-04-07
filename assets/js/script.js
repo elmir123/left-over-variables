@@ -40,13 +40,9 @@ var submitGroceryItemElement = $('#submit-grocery-item');
 
 //reset Form 
 newItemButtonElement.on("click",function(){
-    groceryItemInputElement.val('');
-    expirationDateInputElement.val('');
+    groceryItemInputElement.val(' ');
+    expirationDateInputElement.val(' ');
     $("#modal_title").text("New Ingredient");
-    $('#expiration-date-input').val(' ');
-  M.textareaAutoResize($('#expiration-date-input'));
-  $('#grocery-item-input').val(' ');
-  M.textareaAutoResize($('#grocery-item-input'));
 });
 
 var testDiv = $('#text-div')
@@ -191,6 +187,10 @@ $("body").on("click", ".edit_grocery", function(){
     $("#grocery-item-input").val($("#ingl_"+grocId).text());
     $("#modal_title").text($("#ingl_"+grocId).text());
     $("#new-item-modal").attr("data-editing",grocId);
+    $('#expiration-date-input').val(' ');
+    M.textareaAutoResize($('#expiration-date-input'));
+    $('#grocery-item-input').val(' ');
+    M.textareaAutoResize($('#grocery-item-input'));
 });
 
 //Event handling for "Submit" button in New Item menu
