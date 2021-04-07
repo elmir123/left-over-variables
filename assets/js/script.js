@@ -3,6 +3,7 @@ var smallimgBase="https://spoonacular.com/cdn/ingredients_100x100/";
 var grocImg = $("#grocery-item-img");
 var grocSpoonId = $("#grocery-item-spoonacularid");
 var grocInfo = $("#grocery-item-info");
+var grocItemId = $("#grocery-item-id");
 // availablekeys:  Elmir:e52a263a34ae41e597206f99fb2dde1d, Josh:7957762824aa4703b27057bf676b5bfb
 var spoonApiKey = "7957762824aa4703b27057bf676b5bfb"
 $(document).ready( function () {
@@ -84,10 +85,10 @@ newItemButtonElement.on("click",function(){
     groceryItemInputElement.val(' ');
     expirationDateInputElement.val(' ');
     $("#modal_title").text("New Ingredient");
-
     grocImg.val("");
     grocSpoonId.val("");
     grocInfo.val("");
+    grocItemId.val("");
 });
 
 var testDiv = $('#text-div')
@@ -103,10 +104,11 @@ $('.datepicker').datepicker({
 function addGroceryItem(event) { 
     //Create new item to store inputted values
     var newItem;
-    var obj_id = newItemFormElement.data("editing")
+    var obj_id = grocItemId.val()
     //Create new item to store inputted values
-    existing_check = getIndexFromGroceryItemId(obj_id);
+    existing_check = getIndexFromGroceryItemId(parseInt(obj_id));
     if(existing_check !== null){
+        console.log("passed "+obj_id);
         //get the existing item from the array
         newItem = groceryItemArray[existing_check]
          //update item
@@ -115,7 +117,8 @@ function addGroceryItem(event) {
         newItem.spoonacularId = grocSpoonId.val()
         newItem.ingrediantImg = grocImg.val()
         newItem.ingrediantInfo = grocInfo.val()
-       
+        console.log(obj_id);
+        $("#editbutton_"+obj_id).attr({"data-info":newItem.ingrediantInfo,"data-img":newItem.ingrediantImg,"data-spid":newItem.spoonacularId})
         //update datatable with new values
         $("#ingl_"+obj_id).text(newItem.label)
         $("#ingex_"+obj_id).text(newItem.expirationDate)
@@ -124,7 +127,7 @@ function addGroceryItem(event) {
        
         //remove old item from storage 
 
-        remove_from_storage(obj_id);
+        remove_from_storage(parseInt(obj_id));
         //push the new item to the array to be added to the localStorage
     }else{
         newItem = {
@@ -172,7 +175,7 @@ function addRow(newItem,editing=false) {
     // Assemble tags
     aTag.append(iTag);
     newButton.append(aTag);
-    newButton.append('&nbsp;&nbsp;<a data-target="new-item-modal" class="edit_grocery modal-trigger" href="#" data-id="'+newItem.id+'" data-info="'+newItem.ingrediantInfo+'" data-img="'+newItem.ingrediantImg+'" data-spid="'+newItem.spoonacularId+'"><i class="far fa-edit fa-w-16 fa-2x"></i></a>');
+    newButton.append('&nbsp;&nbsp;<a data-target="new-item-modal" class="edit_grocery modal-trigger" href="#" id="editbutton_'+newItem.id+'" data-id="'+newItem.id+'" data-info="'+newItem.ingrediantInfo+'" data-img="'+newItem.ingrediantImg+'" data-spid="'+newItem.spoonacularId+'"><i class="far fa-edit fa-w-16 fa-2x"></i></a>');
 
     //set a handle for the new row, added the .html() to the generated button tag, .node() to create a node of the row
     var newRow = dataTableHandle.row.add(
@@ -234,9 +237,11 @@ $("body").on("click", ".edit_grocery", function(){
     $("#grocery-item-input").val($("#ingl_"+grocId).text());
     $("#modal_title").text($("#ingl_"+grocId).text());
     $("#new-item-modal").attr("data-editing",grocId);
+    console.log("sending "+grocId);
     grocSpoonId.val(sponid)
     grocImg.val(img)
     grocInfo.val(info)
+    grocItemId.val(grocId)
 });
 
 //Event handling for "Submit" button in New Item menu
