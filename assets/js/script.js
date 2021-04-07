@@ -4,7 +4,7 @@ var grocImg = $("#grocery-item-img");
 var grocSpoonId = $("#grocery-item-spoonacularid");
 var grocInfo = $("#grocery-item-info");
 var grocItemId = $("#grocery-item-id");
-// availablekeys:  Elmir:e52a263a34ae41e597206f99fb2dde1d, Josh:7957762824aa4703b27057bf676b5bfb, Colleen:8b2361f0458a42c79641a112fd701e76
+// availablekeys:  Elmir:e52a263a34ae41e597206f99fb2dde1d, Josh:7957762824aa4703b27057bf676b5bfb, Ashton:1ab77fa9e3ec4beea75ef188f1763c1e,Todd:29ce3195c05a49faa319ee5276da513e
 var spoonApiKey = "8b2361f0458a42c79641a112fd701e76"
 $(document).ready( function () {
 
