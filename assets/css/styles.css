@@ -100,6 +100,10 @@ nav {
     display: inherit;
 }
 
+.card-link > a > span{
+    padding:2px;
+}
+
 .card-footer, .card-header{
     display: flex;
     flex-direction: row;
