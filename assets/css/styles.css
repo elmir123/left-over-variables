@@ -2,6 +2,7 @@ body {
     background-color:rgb(255, 255, 255);    
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+/* foramting the ingrediant list */
 
 header {
     background-color: powderblue;
@@ -30,7 +31,12 @@ nav {
     justify-content: center;
     align-items: center;
 }
-
+.inginfo{
+    font-size: small;
+}
+.inginfo > strong{
+    font-weight: 900;
+}
 .delete_grocery i{
     color: rgb(211, 100, 100);
 }
