@@ -10,6 +10,7 @@ var spoonApiKey = "7957762824aa4703b27057bf676b5bfb"
 $(document).ready( function () {
     // initialize the datatable
     dataTableHandle = $('#grocList').DataTable({
+        "lengthChange": false,
         //sorting by date column
         "order": [[ 2, "desc" ]],
         "columnDefs": [
@@ -29,6 +30,7 @@ $(document).ready( function () {
 } );
 
 $("#grocery-item-input").autocomplete({
+    autoFocus: true,
     source: function (request, response) {
         $.getJSON("https://api.spoonacular.com/food/ingredients/autocomplete?query="+request.term+"&metaInformation=true&apiKey="+spoonApiKey, 
           {  }, 
