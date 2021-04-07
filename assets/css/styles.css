@@ -35,7 +35,7 @@ nav {
     color: rgb(211, 100, 100);
 }
 
-#grocList {
+#grocList, #favourites-list {
     width: 100% !important;
 }
 
@@ -58,7 +58,7 @@ nav {
     max-height: 6rem;
 }
 
-#recipe-list, #favourites-list{
+#recipe-list{
     width: 90%;
 }
 
