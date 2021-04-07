@@ -3,9 +3,7 @@ var smallimgBase="https://spoonacular.com/cdn/ingredients_100x100/";
 var grocImg = $("#grocery-item-img");
 var grocSpoonId = $("#grocery-item-spoonacularid");
 $(document).ready( function () {
-    
-       
-     
+
     // initialize the datatable
     dataTableHandle = $('#grocList').DataTable({
         "order": [[ 2, "desc" ]],
@@ -65,16 +63,12 @@ var submitGroceryItemElement = $('#submit-grocery-item');
 //reset Form 
 newItemButtonElement.on("click",function(){
     newItemFormElement.removeAttr("data-editing");
-    groceryItemInputElement.val('');
-    expirationDateInputElement.val('');
+    groceryItemInputElement.val(' ');
+    expirationDateInputElement.val(' ');
     $("#modal_title").text("New Ingredient");
-    $('#expiration-date-input').val(' ');
-    grocImg.val("");
-    grocSpoonId.val("")
 
-    // M.textareaAutoResize($('#expiration-date-input'));
-    // $('#grocery-item-input').val(' ');
-    // M.textareaAutoResize($('#grocery-item-input'));
+    grocImg.val("");
+    grocSpoonId.val("");
 });
 
 var testDiv = $('#text-div')
