@@ -10,6 +10,7 @@ $(document).ready( function () {
 
     // initialize the datatable
     dataTableHandle = $('#grocList').DataTable({
+        "lengthChange": false,
         "order": [[ 2, "desc" ]],
         "columnDefs": [
             //disabel sorting for the remove button column
@@ -26,6 +27,7 @@ $(document).ready( function () {
 
 
 $("#grocery-item-input").autocomplete({
+    autoFocus: true,
     source: function (request, response) {
         $.getJSON("https://api.spoonacular.com/food/ingredients/autocomplete?query="+request.term+"&metaInformation=true&apiKey="+spoonApiKey, 
           {  }, 
