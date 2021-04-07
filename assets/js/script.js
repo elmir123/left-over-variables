@@ -3,6 +3,8 @@ var smallimgBase="https://spoonacular.com/cdn/ingredients_100x100/";
 var grocImg = $("#grocery-item-img");
 var grocSpoonId = $("#grocery-item-spoonacularid");
 var grocInfo = $("#grocery-item-info");
+// availablekeys:  Elmir:e52a263a34ae41e597206f99fb2dde1d, Josh:7957762824aa4703b27057bf676b5bfb
+var spoonApiKey = "7957762824aa4703b27057bf676b5bfb"
 $(document).ready( function () {
 
     // initialize the datatable
@@ -25,7 +27,7 @@ $(document).ready( function () {
 
 $("#grocery-item-input").autocomplete({
     source: function (request, response) {
-        $.getJSON("https://api.spoonacular.com/food/ingredients/autocomplete?apiKey=e52a263a34ae41e597206f99fb2dde1d&query="+request.term+"&metaInformation=true", 
+        $.getJSON("https://api.spoonacular.com/food/ingredients/autocomplete?query="+request.term+"&metaInformation=true&apiKey="+spoonApiKey, 
           {  }, 
           function(data) {
             var dataform=[]
@@ -44,7 +46,7 @@ $("#grocery-item-input").autocomplete({
         grocSpoonId.val(ui.item.id);
         mainNutrients=["Cholesterol","Calories","Fat","Carbohydrates","Sugar","Protein","Fiber"]
         
-        rUrl="https://api.spoonacular.com/food/ingredients/"+ui.item.id+"/information?amount=1&apiKey=e52a263a34ae41e597206f99fb2dde1d"
+        rUrl="https://api.spoonacular.com/food/ingredients/"+ui.item.id+"/information?amount=1&apiKey="+spoonApiKey
         $.get(rUrl, function() {}).done(function(data) { 
             nutrients=""
             for(i of mainNutrients){
