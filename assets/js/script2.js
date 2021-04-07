@@ -345,6 +345,8 @@ function createRecipeCard(recipe) {
     if(alreadyFavourited){
         console.log("alreadyFavourited: " + recipeId);
         recipeCard.find('.card-header').append('<i class="material-icons favourite">favorite</i>')
+        //Remove save button
+        recipeCard.find('button').remove()
     }
 
     //Append to the current recipe list
@@ -435,6 +437,9 @@ $("#recipe-list").on('click', '.recipe-save-button', function(){
     if(!alreadyFavourited){
         //Remove save button from saved html
         recipeCard.find('button').remove();
+
+        //Add heart icon
+        $(this).parents('#recipe-card').find('.card-header').append('<i class="material-icons favourite">favorite</i>');
             
         //testList.append(recipeCard);
 
