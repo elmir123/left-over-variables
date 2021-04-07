@@ -117,7 +117,6 @@ function addGroceryItem(event) {
         newItem.spoonacularId = grocSpoonId.val()
         newItem.ingrediantImg = grocImg.val()
         newItem.ingrediantInfo = grocInfo.val()
-        console.log(obj_id);
         $("#editbutton_"+obj_id).attr({"data-info":newItem.ingrediantInfo,"data-img":newItem.ingrediantImg,"data-spid":newItem.spoonacularId})
         //update datatable with new values
         $("#ingl_"+obj_id).text(newItem.label)
