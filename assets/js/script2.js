@@ -80,7 +80,7 @@ $("#grocery-item-input").autocomplete({
             for(i of mainNutrients){
                 for(x of data.nutrition.nutrients){                   
                     if (i===x.name){
-                        nutrients += "<span class='inginfo'><strong>"+x.name+"</strong>:"+x.amount+"g</span>&nbsp &nbsp"
+                        nutrients += "<span class='inginfo'><strong>"+x.name+"</strong>:"+x.amount+x.unit+"</span>&nbsp &nbsp"
                     }
                 }
             }

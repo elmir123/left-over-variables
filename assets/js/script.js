@@ -39,6 +39,7 @@ $("#grocery-item-input").autocomplete({
             var dataform=[]
               if(data){
                   dataform = data.map(function(x){
+                      //build dictanary of ingrediant fields 
                       return { label: x.name, id: x.id, img:x.image }
                   })
               }
@@ -63,7 +64,7 @@ $("#grocery-item-input").autocomplete({
                 for(x of data.nutrition.nutrients){                   
                     if (i===x.name){
                         //append string of html
-                        nutrients += "<span class='inginfo'><strong>"+x.name+"</strong>:"+x.amount+"g</span>&nbsp &nbsp"
+                        nutrients += "<span class='inginfo'><strong>"+x.name+"</strong>:"+x.amount+x.unit+"</span>&nbsp &nbsp"
                     }
                 }
             }
