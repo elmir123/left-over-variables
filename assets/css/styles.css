@@ -1,0 +1,156 @@
+body {
+    background-color:rgb(211, 238, 223);    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+/* foramting the ingrediant list */
+
+header {
+    background-color: rgb(57, 153, 132);
+    color: white;
+}
+
+h1 {
+    font-family: monospace;
+    font-size: 5rem;
+}
+
+h2 {
+    font-family: monospace;
+    font-size: 2.5rem;
+}
+
+thead {
+    background-color: mintcream;
+}
+
+table {
+    color:  rgb(127, 148, 137);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background-color:rgb(36, 100, 55)
+}
+
+.container {
+    padding-bottom: 25px;
+    padding-top: 25px;    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.inginfo{
+    font-size: small;
+}
+.inginfo > strong{
+    font-weight: 900;
+}
+.delete_grocery i{
+    color: rgb(211, 100, 100);
+}
+
+#grocList, #favourites-list {
+    width: 100% !important;
+}
+
+#grocList_filter input{
+    padding: 0px !important;
+    height: 2rem;
+}
+
+.text_align_center{
+    text-align: center;
+}
+
+.card-content > p {
+    padding: 5px 0px 5px;
+}
+
+.recipe_ingredient_list{
+    width: 80%;
+    overflow: auto;
+    max-height: 6rem;
+}
+
+#recipe-list{
+    width: 90%;
+}
+
+.card-image{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-link{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+
+    margin: 0px 20px 10px;
+}
+
+.card-link > a{
+    font-size: medium;
+    text-transform: capitalize;
+
+    display: inherit;
+}
+
+.card-link > a > span{
+    padding:2px;
+}
+
+.card-footer, .card-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 36px;
+}
+
+.recipe-save-button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.recipe-save-button > i{
+    padding-right: 3px;
+}
+
+.card-image{
+    background-color: #eeeeee;
+}
+
+.favourite{
+    color: #f44336;
+}
+
+.recipe-remove-button{
+    color: white;
+}
+
+
+
+/* large devices (laptops etc) */
+@media screen and (max-width: 768px){
+    .card-footer{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .recipe-save-button{
+        margin: 10px 0px 10px;
+    }
+}
+
+/* extra large devices (desktops etc) */
+@media screen and (min-width: 992px){
+    #groceryListContainer{
+        width: 60%;
+    }
+}
+
