@@ -15,7 +15,6 @@ function getFavouritesForList(){
             favouriteRecipesArray.push(storedFavourites[i]);
         }
     }
-    console.log(favouriteRecipesArray);
 }
 
 function displayFavourites(){

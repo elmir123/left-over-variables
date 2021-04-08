@@ -13,7 +13,9 @@ h1 {
     font-family: monospace;
     font-size: 5rem;
 }
-
+.ingrediantname{
+    color:black !important
+}
 h2 {
     font-family: monospace;
     font-size: 2.5rem;

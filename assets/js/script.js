@@ -1,3 +1,4 @@
+//declearing global variables
 var dataTableHandle;
 var smallimgBase="https://spoonacular.com/cdn/ingredients_100x100/";
 var grocImg = $("#grocery-item-img");
@@ -6,6 +7,8 @@ var grocInfo = $("#grocery-item-info");
 var grocItemId = $("#grocery-item-id");
 // availablekeys:  Elmir:e52a263a34ae41e597206f99fb2dde1d, Josh:7957762824aa4703b27057bf676b5bfb, Ashton:1ab77fa9e3ec4beea75ef188f1763c1e,Todd:29ce3195c05a49faa319ee5276da513e
 var spoonApiKey = "8b2361f0458a42c79641a112fd701e76"
+
+//running scripts after all of the doms have been generated
 $(document).ready( function () {
 
     // initialize the datatable
@@ -16,7 +19,7 @@ $(document).ready( function () {
             //disabel sorting for the remove button column
             { "orderable": false, "targets": [0,3] },
             //add class to center the buttons of the remove button column
-            { "className": "text_align_center", "targets": [ 0,3 ] }
+            { "className": "text_align_center", "targets": [ 0,3 ] },
         ]
     });
     //Call the fillList function to populate the datatable from local storage
@@ -25,10 +28,11 @@ $(document).ready( function () {
     $('.modal').modal();  
 } );
 
-
+//spoonacular api to handle autocomplete and info of ingrediants
 $("#grocery-item-input").autocomplete({
     autoFocus: true,
     source: function (request, response) {
+        //autocomplete api
         $.getJSON("https://api.spoonacular.com/food/ingredients/autocomplete?query="+request.term+"&metaInformation=true&apiKey="+spoonApiKey, 
           {  }, 
           function(data) {
@@ -42,22 +46,28 @@ $("#grocery-item-input").autocomplete({
           }
         );      
     },
+    //start api lookup after 2 characters input
     minLength: 2,
+    //after select actions
     select: function( event, ui ) {
+        //set values in the hidden fields
         grocImg.val(ui.item.img);
         grocSpoonId.val(ui.item.id);
+        //array of lookup nutrients
         mainNutrients=["Cholesterol","Calories","Fat","Carbohydrates","Sugar","Protein","Fiber"]
-        
+        //api to collect ingrediant info 
         rUrl="https://api.spoonacular.com/food/ingredients/"+ui.item.id+"/information?amount=1&apiKey="+spoonApiKey
         $.get(rUrl, function() {}).done(function(data) { 
             nutrients=""
             for(i of mainNutrients){
                 for(x of data.nutrition.nutrients){                   
                     if (i===x.name){
+                        //append string of html
                         nutrients += "<span class='inginfo'><strong>"+x.name+"</strong>:"+x.amount+"g</span>&nbsp &nbsp"
                     }
                 }
             }
+            //add built html string into the hidden textarea
             grocInfo.val(nutrients);
             
         });
@@ -78,7 +88,6 @@ var newItemFormElement = $('#new-item-modal');
 var groceryItemInputElement = $('#grocery-item-input');
 var expirationDateInputElement = $('.datepicker');  
 var submitGroceryItemElement = $('#submit-grocery-item');
-
 
 //reset Form 
 newItemButtonElement.on("click",function(){
@@ -110,7 +119,6 @@ function addGroceryItem(event) {
     existing_check = getIndexFromGroceryItemId(parseInt(obj_id));
 
     if(existing_check !== null){
-        console.log("passed "+obj_id);
         //get the existing item from the array
         newItem = groceryItemArray[existing_check]
          //update item
@@ -189,7 +197,7 @@ function addRow(newItem,editing=false) {
     //set a handle for the new row, added the .html() to the generated button tag, .node() to create a node of the row
     var newRow = dataTableHandle.row.add(
         ['<img id="ingImg_'+newItem.id+'" src="'+checkedImg+'"/>',
-        '<span id="ingl_'+newItem.id+'">'+newItem.label+'</span><br><span id="ingInfo_'+newItem.id+'">'+newItem.ingrediantInfo+'</span>',
+        '<span class="ingrediantname" id="ingl_'+newItem.id+'">'+newItem.label+'</span><br><span id="ingInfo_'+newItem.id+'">'+newItem.ingrediantInfo+'</span>',
         '<span id="ingex_'+newItem.id+'">'+newItem.expirationDate+'</span>', 
         newButton.html()]
         ).draw().node();
@@ -246,7 +254,7 @@ $("body").on("click", ".edit_grocery", function(){
     $("#grocery-item-input").val($("#ingl_"+grocId).text());
     $("#modal_title").text($("#ingl_"+grocId).text());
     $("#new-item-modal").attr("data-editing",grocId);
-    console.log("sending "+grocId);
+    //set values in fields
     grocSpoonId.val(sponid)
     grocImg.val(img)
     grocInfo.val(info)

@@ -29,9 +29,30 @@ $(document).ready( function () {
 
 } );
 
+//handle the check all checkbox input
+$("#checkAll").on("click",function(){
+    selectedGroceries=[]
+    if ($(this).prop("checked") == true){
+        //add the item to the array of selectedGroceries
+        $(".grocCheckbox").each(function(){
+            $(this).prop('checked', true);
+            selectedGroceries.push($(this).data("groceryname"));
+        })
+        
+    }else{
+        // remove item from the array of selectedGroceries
+        $(".grocCheckbox").each(function(){
+            $(this).prop('checked', false);
+            removeFromSelectedList($(this));
+        })
+    }
+});
+
+//autocomplete api with ingrediant info on select
 $("#grocery-item-input").autocomplete({
     autoFocus: true,
     source: function (request, response) {
+        //auto complete
         $.getJSON("https://api.spoonacular.com/food/ingredients/autocomplete?query="+request.term+"&metaInformation=true&apiKey="+spoonApiKey, 
           {  }, 
           function(data) {
@@ -47,11 +68,13 @@ $("#grocery-item-input").autocomplete({
     },
     minLength: 2,
     select: function( event, ui ) {
+        //on select add values into the field
         grocImg.val(ui.item.img);
         grocSpoonId.val(ui.item.id);
         mainNutrients=["Cholesterol","Calories","Fat","Carbohydrates","Sugar","Protein","Fiber"]
         
         rUrl="https://api.spoonacular.com/food/ingredients/"+ui.item.id+"/information?amount=1&apiKey="+spoonApiKey
+        // build html string of nutrients info 
         $.get(rUrl, function() {}).done(function(data) { 
             nutrients=""
             for(i of mainNutrients){
@@ -61,6 +84,7 @@ $("#grocery-item-input").autocomplete({
                     }
                 }
             }
+            // add built html string of nutrients info 
             grocInfo.val(nutrients);
             
         });
@@ -86,9 +110,7 @@ newItemButtonElement.on("click",function(){
     expirationDateInputElement.val('');  
     $("#modal_title").text("New Ingredient");
     $('#expiration-date-input').val('');
-    // M.textareaAutoResize($('#expiration-date-input'));
     $('#grocery-item-input').val('');
-    // M.textareaAutoResize($('#grocery-item-input'));
 });
 
 
@@ -120,7 +142,6 @@ function addGroceryItem(event) {
     //Create new item to store inputted values
     existing_check = getIndexFromGroceryItemId(parseInt(obj_id));
     if(existing_check !== null){
-        console.log("passed "+obj_id);
         //get the existing item from the array
         newItem = groceryItemArray[existing_check]
          //update item
@@ -135,9 +156,7 @@ function addGroceryItem(event) {
         $("#ingex_"+obj_id).text(newItem.expirationDate)
        
         //remove old item from storage 
-
         remove_from_storage(parseInt(obj_id));
-        //push the new item to the array to be added to the localStorage
     }else{
         newItem = {
         "label":'',
@@ -163,8 +182,9 @@ function addGroceryItem(event) {
     groceryItemInputElement.val('');
     expirationDateInputElement.val('');
   
-    //Add items to local storage
+    //push the new item to the array to be added to the localStorage
     groceryItemArray.push(newItem);
+    //Add items to local storage
     localStorage.setItem("groceryItemArray", JSON.stringify(groceryItemArray));
 
 }
@@ -204,7 +224,7 @@ function addRow(newItem) {
     //set a handle for the new row, added the .html() to the generated button tag, .node() to create a node of the row
     var newRow = dataTableHandle.row.add(
         [newLabel.html(),
-        '<span id="ingl_'+newItem.id+'">'+newItem.label+'</span>',
+        '<span class="ingrediantname" id="ingl_'+newItem.id+'">'+newItem.label+'</span>',
         '<span id="ingex_'+newItem.id+'">'+newItem.expirationDate+'</span>', 
         newButton.html()]
         ).draw().node();
@@ -227,6 +247,7 @@ function addRow(newItem) {
         }   
     }
 }
+
 
 function getFavourites(){
     let storedFavourites = JSON.parse(localStorage.getItem('favouriteRecipesArray'));
@@ -270,24 +291,21 @@ function removeFromSelectedList(object){
             selectedGroceries.splice(i, 1); 
           i--; 
         }}
-    console.log(selectedGroceries);
 }
 
 
 //handle check and uncheck select checkbox events
 $("body").on('click',".grocCheckbox", function(){
     //on change if this checkbox is checked
-    if ($(this).is(':checked')){
+    if ($(this).prop("checked") == true){
         //add the item to the array of selectedGroceries
         selectedGroceries.push($(this).data("groceryname"));
-        console.log(selectedGroceries);
     }else{
         // remove item from the array of selectedGroceries
         removeFromSelectedList($(this));
     }
 });
 
-//edit gorceries
 //edit gorceries
 $("body").on("click", ".edit_grocery", function(){
     var grocId = $(this).data("id");
@@ -298,7 +316,7 @@ $("body").on("click", ".edit_grocery", function(){
     $("#grocery-item-input").val($("#ingl_"+grocId).text());
     $("#modal_title").text($("#ingl_"+grocId).text());
     $("#new-item-modal").attr("data-editing",grocId);
-    console.log("sending "+grocId);
+    // set new values in hidden fields for form submission
     grocSpoonId.val(sponid)
     grocImg.val(img)
     grocInfo.val(info)
@@ -343,7 +361,6 @@ function createRecipeCard(recipe) {
     let alreadyFavourited = checkIfFavourite(recipeId);
 
     if(alreadyFavourited){
-        console.log("alreadyFavourited: " + recipeId);
         recipeCard.find('.card-header').append('<i class="material-icons favourite">favorite</i>')
         //Remove save button
         recipeCard.find('button').remove()
@@ -388,7 +405,6 @@ function checkIfFavourite(recipeName) {
 
 generateRecipesButton.click(function (params) {
     //finaly set the requestUrl with the new selected options
-    console.log(selectedGroceries);
     requestUrl = 'https://api.edamam.com/search?q='+selectedGroceries.join("+")+'&app_id=03d33e60&app_key=82cdeff85835203474becaab930c556c&from=0&to=5&calories=591-722&health=alcohol-free'; 
     
     fetch(requestUrl, {
@@ -462,7 +478,6 @@ $("#recipe-list").on('click', '.recipe-save-button', function(){
     //Remove button 
     $(this).remove()
 
-    console.log(favouriteRecipesArray)
 })
 
 
