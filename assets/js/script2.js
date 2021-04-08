@@ -457,7 +457,6 @@ $("#recipe-list").on('click', '.recipe-save-button', function(){
 
         //Update localStorage
         localStorage.setItem("favouriteRecipesArray", JSON.stringify(favouriteRecipesArray));
-
     }
     
     //Remove button 
