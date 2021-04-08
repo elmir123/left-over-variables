@@ -87,3 +87,11 @@ Edamam - Used For:
 - Cloudflare
 
 - Moment
+
+The following image demonstrates the web application's appearance:
+
+![HTML/CSS/JavaScript Left-OVER-VARIABLES.](./Images/screen.png)
+
+To view the working app use the link below:
+
+https://elmirlekovic.github.io/left-over-variables/
